@@ -1,0 +1,203 @@
+.booking-page .sub-header {
+  display: none;
+}
+
+.booking-hero {
+  text-align: center;
+  padding: 48px 28px 32px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.booking-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.booking-breadcrumbs a {
+  color: #888;
+}
+
+.booking-breadcrumbs a:hover {
+  color: var(--navy);
+}
+
+.booking-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.booking-hero p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+}
+
+.booking-section {
+  padding: 0 28px 80px;
+}
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.15fr;
+  gap: 36px;
+  max-width: 1180px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.booking-layout .booking-rate-panel {
+  position: sticky;
+  top: 88px;
+}
+
+.booking-aside img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.booking-aside-copy {
+  padding: 28px 0 0;
+}
+
+.booking-aside-copy h2 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.booking-aside-copy p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #555;
+  margin-bottom: 18px;
+}
+
+.booking-aside-copy ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.booking-aside-copy li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  color: #444;
+}
+
+.booking-aside-copy li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 10px;
+  height: 6px;
+  border-left: 1.5px solid var(--blue);
+  border-bottom: 1.5px solid var(--blue);
+  transform: rotate(-45deg);
+}
+
+.booking-card {
+  background: #fff;
+  border: 1px solid #e8eaed;
+  padding: 36px 32px 32px;
+  box-shadow: 0 8px 32px rgba(0, 26, 61, 0.06);
+}
+
+.booking-yacht-meta {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.booking-aside-copy em {
+  font-style: normal;
+  font-size: 13px;
+  color: #888;
+}
+
+.booking-yacht-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.booking-yacht-selected {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+  background: #f4f6f9;
+  border: 1px solid #e8eaed;
+}
+
+.booking-yacht-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.booking-yacht-selected strong {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.booking-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.booking-intro {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.label-optional {
+  font-weight: 400;
+  color: #999;
+}
+
+@media (max-width: 900px) {
+  .booking-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.15fr;
+  gap: 36px;
+  max-width: 1180px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.booking-layout .booking-rate-panel {
+  position: sticky;
+  top: 88px;
+}
