@@ -12,35 +12,43 @@
   <link rel="stylesheet" href="css/premium.css" />
   <link rel="stylesheet" href="css/experience.css" />
   <link rel="stylesheet" href="css/layout-shared.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
 </head>
 <body class="theme-obsidian">
   <!-- Header -->
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <button class="icon-btn menu-toggle" aria-label="Open menu" type="button">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-            <path d="M0 1h22M0 8h22M0 15h22" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
+        <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="site-mobile-nav" aria-label="Open menu">
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
         </button>
-        <nav class="header-nav" aria-label="Primary">
+        <nav class="header-nav" id="site-mobile-nav" aria-label="Primary">
           <a href="booking.html">Book a Trip</a>
-          <a href="#destinations">Destinations</a>
         </nav>
       </div>
 
-      <a href="index.html" class="logo" aria-label="Lady Marcelle home">Lady Marcelle</a>
+      <a href="index.html" class="logo" aria-label="Lady Marcelle home">
+        <img src="images/logos/lm-full-gold.png" alt="" class="brand-logo brand-logo--header" data-brand-logo="full" width="220" height="48" />
+      </a>
+
+      <div class="header-right">
+        <button type="button" class="logo-color-toggle" aria-label="Switch logo color">
+          <span class="logo-color-toggle-swatch" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- Sub header -->
   <div class="sub-header">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="index.html">Lady Marcelle</a>
+      <a href="index.html">LADY MARCELLE</a>
       <span>/</span>
       <a href="#charter">Yachts for Charter</a>
       <span>/</span>
-      <span>Lady Marcelle Yacht for Charter</span>
+      <span>LADY MARCELLE Yacht for Charter</span>
     </nav>
     <div class="sub-header-contact">
       <a href="mailto:charter@ladymarcelle.com" class="contact-pill">
@@ -56,55 +64,121 @@
 
   <section class="obsidian-hero">
     <section class="hero" id="gallery-trigger">
-      <img
-        src="images/1667398866777_lady_marcelle1_1600x900.webp"
-        alt="Lady Marcelle motor yacht cruising in blue water"
-        class="hero-img"
-        id="hero-main-img"
-      />
+      <video
+        class="hero-img hero-video"
+        id="hero-main-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="images/1667398866777_lady_marcelle1_1600x900.webp"
+        aria-label="Lady Marcelle motor yacht cruising in blue water"
+      >
+        <source src="videos/hero.mp4" type="video/mp4" />
+      </video>
     </section>
     <div class="obsidian-hero-content">
       <div>
-        <h1>Lady Marcelle</h1>
+        <h1>
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--hero" width="480" height="120" />
+        </h1>
         <p class="lede">A 27m Horizon motor yacht for eight guests — crafted for unhurried Adriatic days, private anchorages, and evenings on deck.</p>
-        <div class="meta-row">
-          <span class="obsidian-chip">Horizon · 27m</span>
-          <span class="obsidian-chip">From €34,000 / week</span>
-          <span class="obsidian-chip">Crew of 4</span>
-        </div>
       </div>
     </div>
   </section>
 
+  <div class="hero-bottom-band">
+    <div class="hero-nav-sticky-host">
+      <nav class="hero-section-nav" aria-label="Page sections">
+        <a href="#gallery">Gallery</a>
+        <span class="nav-sep" aria-hidden="true">|</span>
+        <a href="#toys">Toys &amp; Tender</a>
+        <span class="nav-sep" aria-hidden="true">|</span>
+        <a href="#blueprint">Discover</a>
+        <span class="nav-sep" aria-hidden="true">|</span>
+        <a href="#description">Description</a>
+        <span class="nav-sep" aria-hidden="true">|</span>
+        <a href="#destinations">Destinations</a>
+      </nav>
+    </div>
+
+    <aside class="hero-specs-bar" id="specs" aria-label="Yacht specifications">
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">88'7" / 27m</span>
+        <span class="hero-spec-label">Length</span>
+      </div>
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">2003 / 2022</span>
+        <span class="hero-spec-label">Built / Refit</span>
+      </div>
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">8</span>
+        <span class="hero-spec-label">Guests</span>
+      </div>
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">4</span>
+        <span class="hero-spec-label">Cabins</span>
+      </div>
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">4</span>
+        <span class="hero-spec-label">Crew</span>
+      </div>
+      <div class="hero-spec-item">
+        <span class="hero-spec-value">From €34,000 p/week</span>
+        <span class="hero-spec-label">Charter Rates</span>
+      </div>
+    </aside>
+  </div>
 
   <!-- Content + Sidebar layout -->
   <div class="page-layout">
     <main class="main-col">
-      <!-- Description -->
-      <section class="content-section detail-row first-section" id="description">
-        <h2 class="section-label">Description</h2>
-        <div class="section-body">
-          <p>
-            Built by Horizon in 2003 and maintained to the highest standard, Lady Marcelle is a 27m yacht that speeds up to 17 knots and is the ideal size for exploring the best of the Adriatic. Plenty of indoor and outdoor entertaining areas, and an extensive selection of water toys make her the ideal charter yacht for socializing and entertaining with family and friends. Lady Marcelle accommodates eight guests in four ensuite air-conditioned cabins, which are looked after by an experienced crew of four.
-          </p>
+      <!-- Gallery -->
+      <section class="gallery-section" id="gallery" aria-label="Photo gallery">
+        <div class="gallery-section-head">
+          <div class="brand-logo-wrap">
+            <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--section" width="320" height="72" />
+          </div>
         </div>
+        <div class="gallery-category-grid" id="gallery-category-grid" role="list"></div>
       </section>
 
-      <!-- Specifications -->
-      <section class="content-section specs-section" id="specs" data-reveal>
-        <div class="specs-head">
-          <h2 class="section-label">Specifications</h2>
-          <p class="specs-lede">Key numbers for Lady Marcelle — built for comfortable Adriatic cruising.</p>
+      <!-- Key Features -->
+      <section class="features-marquee-section" id="features" aria-label="Key features" data-reveal>
+        <div class="features-marquee-label">
+          <h2 class="section-label">Key Features</h2>
         </div>
-        <div class="spec-tiles">
-          <article class="spec-tile"><span class="spec-tile-label">Length</span><strong>88'7" / 27m</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Built / Refit</span><strong>2003 / 2022</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Max speed</span><strong>17 knots</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Cruise speed</span><strong>11 knots</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Builder</span><strong>Horizon</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Guests</span><strong>8</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Cabins</span><strong>4</strong></article>
-          <article class="spec-tile"><span class="spec-tile-label">Crew</span><strong>4</strong></article>
+        <div class="features-marquee" role="region" aria-roledescription="marquee">
+          <div class="features-marquee-track">
+            <ul class="features-marquee-group">
+              <li>Classic and elegant interior</li>
+              <li>Jacuzzi on Sundeck</li>
+              <li>Professional Crew of 4</li>
+              <li>The getaway yacht</li>
+            </ul>
+            <ul class="features-marquee-group" aria-hidden="true">
+              <li>Classic and elegant interior</li>
+              <li>Jacuzzi on Sundeck</li>
+              <li>Professional Crew of 4</li>
+              <li>The getaway yacht</li>
+            </ul>
+          </div>
+        </div>
+        <div class="features-menu">
+          <button type="button" class="features-menu-trigger icon-btn" aria-label="View all key features" aria-expanded="false" aria-controls="features-menu-popup">
+            <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+              <path d="M0 1h22M0 8h22M0 15h22" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <div class="features-menu-popup" id="features-menu-popup" role="region" aria-label="All key features">
+            <p class="features-menu-popup-title">All Key Features</p>
+            <ul class="features-menu-list">
+              <li>Classic and elegant interior</li>
+              <li>Jacuzzi on Sundeck</li>
+              <li>Professional Crew of 4</li>
+              <li>The getaway yacht</li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -207,9 +281,13 @@
       <section class="yacht-blueprint-section" id="blueprint" data-reveal>
         <div class="blueprint-head">
           <p class="tide-eyebrow">Explore</p>
-          <h2 class="section-label">Discover Lady Marcelle</h2>
-          <p class="blueprint-lede">Hover over the hotspots to explore the yacht's key areas and features.</p>
+          <h2 class="section-label brand-logo-heading brand-logo-heading--center">
+            <span>Discover</span>
+            <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
+          </h2>
+          <p class="blueprint-lede">Tap or hover over the hotspots to explore the yacht's key areas and features.</p>
         </div>
+        <div class="blueprint-stage">
         <div class="blueprint-wrap">
           <img src="images/yacht-blueprint.png" alt="Lady Marcelle aerial blueprint illustration" class="blueprint-img" />
 
@@ -269,66 +347,16 @@
             <p>Yamaha 60 hp outboard for beach drops, harbour runs, island hopping, and water-sports towing.</p>
           </div>
         </div>
-      </section>
-
-      <!-- Photo rail -->
-      <section class="photo-rail-wrap" aria-label="Cinematic photo rail">
-        <div class="photo-rail-head">
-          <h2>Lady Marcelle</h2>
-          <button type="button" class="availability-link" data-open-gallery>Open gallery</button>
-        </div>
-        <div class="photo-rail">
-          <figure data-gallery-index="0">
-            <img src="images/1667398866779_lady_marcelle2_1600x900.webp" alt="Lady Marcelle on blue water" loading="lazy" />
-            <figcaption>Open water</figcaption>
-          </figure>
-          <figure data-gallery-index="1">
-            <img src="images/1667398866781_lady_marcelle6_1600x900.webp" alt="Lady Marcelle profile" loading="lazy" />
-            <figcaption>Profile</figcaption>
-          </figure>
-          <figure data-gallery-index="2">
-            <img src="images/1667398866780_lady_marcelle4_1600x900.webp" alt="Lady Marcelle aerial" loading="lazy" />
-            <figcaption>Aerial</figcaption>
-          </figure>
-          <figure data-gallery-index="3">
-            <img src="images/1667398866779_lady_marcelle3_1600x900.webp" alt="Aerial cruise" loading="lazy" />
-            <figcaption>Aerial</figcaption>
-          </figure>
-          <figure data-gallery-index="4">
-            <img src="images/1667398866781_lady_marcelle6_1600x900.webp" alt="Lady Marcelle profile" loading="lazy" />
-            <figcaption>Profile</figcaption>
-          </figure>
-          <figure data-gallery-index="5">
-            <img src="images/1667398866785_lady_marcelle10_1600x900.webp" alt="Yacht detail" loading="lazy" />
-            <figcaption>Detail</figcaption>
-          </figure>
-          <figure data-gallery-index="6">
-            <img src="images/1667398866781_lady_marcelle5_1600x900.webp" alt="Coast" loading="lazy" />
-            <figcaption>Coast</figcaption>
-          </figure>
         </div>
       </section>
 
-      <!-- Key Features -->
-      <section class="features-marquee-section" id="features" aria-label="Key features" data-reveal>
-        <div class="features-marquee-label">
-          <h2 class="section-label">Key Features</h2>
-        </div>
-        <div class="features-marquee" role="region" aria-roledescription="marquee">
-          <div class="features-marquee-track">
-            <ul class="features-marquee-group">
-              <li>Classic and elegant interior</li>
-              <li>Jacuzzi on Sundeck</li>
-              <li>Professional Crew of 4</li>
-              <li>The getaway yacht</li>
-            </ul>
-            <ul class="features-marquee-group" aria-hidden="true">
-              <li>Classic and elegant interior</li>
-              <li>Jacuzzi on Sundeck</li>
-              <li>Professional Crew of 4</li>
-              <li>The getaway yacht</li>
-            </ul>
-          </div>
+      <!-- Description -->
+      <section class="content-section detail-row" id="description">
+        <h2 class="section-label">Description</h2>
+        <div class="section-body">
+          <p>
+            Built by Horizon in 2003 and maintained to the highest standard, LADY MARCELLE is a 27m yacht that speeds up to 17 knots and is the ideal size for exploring the best of the Adriatic. Plenty of indoor and outdoor entertaining areas, and an extensive selection of water toys make her the ideal charter yacht for socializing and entertaining with family and friends. LADY MARCELLE accommodates eight guests in four ensuite air-conditioned cabins, which are looked after by an experienced crew of four.
+          </p>
         </div>
       </section>
 
@@ -351,7 +379,9 @@
     <!-- Sidebar in grid -->
     <aside class="sidebar" id="charter-sidebar" aria-label="Charter enquiry">
       <div class="sidebar-inner">
-        <h2 class="sidebar-title">Lady Marcelle</h2>
+        <h2 class="sidebar-title">
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--sidebar" width="200" height="44" />
+        </h2>
         <p class="sidebar-sub">Horizon · 88'7"/27m</p>
         <p class="sidebar-rate">Rate: From €34,000 <em>p/week + expenses</em></p>
 
@@ -425,7 +455,10 @@
       <img src="images/1667398866785_lady_marcelle10_1600x900.webp" alt="" aria-hidden="true" />
     </div>
     <div class="enquire-card">
-      <h2>Enquire About Chartering Lady Marcelle</h2>
+      <h2 class="brand-logo-heading brand-logo-heading--center">
+        <span>Enquire About Chartering</span>
+        <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
+      </h2>
       <p class="enquire-intro">Please complete the form below and our Charter Team will respond to your enquiry shortly.</p>
       <form id="enquire-form" novalidate>
         <div class="form-row">
@@ -492,6 +525,7 @@
           <span>Yes, I consent to my data being stored according to the guidelines set out in the <a href="#">Privacy Policy</a>.*</span>
         </label>
         <button type="submit" class="btn btn-send">Send</button>
+        <p class="form-error" id="form-error" hidden role="alert"></p>
         <p class="form-success" id="form-success" hidden>Thank you. Our charter team will be in touch shortly.</p>
       </form>
     </div>
@@ -511,7 +545,9 @@
 
     <div class="footer-grid footer-grid--simple">
       <div>
-        <h3>Lady Marcelle</h3>
+        <h3>
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+        </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
           <li><a href="booking.html">Book a Trip</a></li>
@@ -541,7 +577,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© Lady Marcelle 2026</p>
+      <p>© LADY MARCELLE 2026</p>
       <a href="#">Privacy policy</a>
     </div>
   </footer>
@@ -549,9 +585,12 @@
   <!-- Gallery Modal -->
   <div class="gallery-modal" id="gallery-modal" hidden>
     <div class="gallery-modal-header">
-      <div>
-        <h2>Lady Marcelle</h2>
+      <div class="gallery-modal-header-center">
+        <div class="brand-logo-wrap">
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--modal" width="220" height="48" />
+        </div>
         <p>Horizon · 88'7"/27m · Rate: From €34,000 p/week + expenses</p>
+        <nav class="gallery-modal-categories" id="gallery-modal-categories" aria-label="Gallery categories"></nav>
       </div>
       <div class="gallery-modal-actions">
         <a href="#enquire" class="btn btn-enquire-sm" data-close-gallery>Enquire Now</a>
@@ -572,6 +611,8 @@
     </div>
   </div>
 
+  <script src="js/logo-theme.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/charter-selection.js"></script>
   <script src="js/main.js"></script>
   <script src="js/premium.js"></script>

@@ -13,35 +13,47 @@
   <link rel="stylesheet" href="css/premium.css" />
   <link rel="stylesheet" href="css/experience.css" />
   <link rel="stylesheet" href="css/layout-shared.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
 </head>
 <body class="booking-page theme-obsidian">
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <button class="icon-btn menu-toggle" aria-label="Open menu" type="button">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-            <path d="M0 1h22M0 8h22M0 15h22" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
+        <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="site-mobile-nav" aria-label="Open menu">
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
         </button>
-        <nav class="header-nav" aria-label="Primary">
+        <nav class="header-nav" id="site-mobile-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
           <a href="booking.html">Book a Trip</a>
-          <a href="index.html#destinations">Destinations</a>
         </nav>
       </div>
-      <a href="index.html" class="logo" aria-label="Lady Marcelle home">Lady Marcelle</a>
+      <a href="index.html" class="logo" aria-label="Lady Marcelle home">
+        <img src="images/logos/lm-full-gold.png" alt="" class="brand-logo brand-logo--header" data-brand-logo="full" width="220" height="48" />
+      </a>
+
+      <div class="header-right">
+        <button type="button" class="logo-color-toggle" aria-label="Switch logo color">
+          <span class="logo-color-toggle-swatch" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <section class="booking-hero">
     <nav class="booking-breadcrumbs" aria-label="Breadcrumb">
-      <a href="index.html">Lady Marcelle</a>
+      <a href="index.html">LADY MARCELLE</a>
       <span>›</span>
-      <a href="index.html">Lady Marcelle</a>
+      <a href="index.html">LADY MARCELLE</a>
       <span>›</span>
       <span aria-current="page">Book Now</span>
     </nav>
-    <h1>Book Lady Marcelle</h1>
-    <p>Complete the form below and our Charter Consultants will confirm availability and prepare a proposal for your charter aboard Lady Marcelle.</p>
+    <h1 class="brand-logo-heading brand-logo-heading--center">
+      <span>Book</span>
+      <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
+    </h1>
+    <p>Complete the form below and our Charter Consultants will confirm availability and prepare a proposal for your charter aboard LADY MARCELLE.</p>
   </section>
 
   <section class="booking-section">
@@ -84,13 +96,6 @@
         <h2>Booking Request</h2>
         <p class="booking-intro">Fields marked with * are required.</p>
         <form id="booking-form" novalidate>
-          <input type="hidden" name="yacht" value="Lady Marcelle" />
-
-          <div class="booking-yacht-selected">
-            <span class="booking-yacht-label">Yacht</span>
-            <strong>Lady Marcelle</strong>
-          </div>
-
           <div class="form-row">
             <div class="form-field">
               <label for="first-name">First name *</label>
@@ -175,7 +180,8 @@
           </label>
 
           <button type="submit" class="btn btn-send">Book Now</button>
-          <p class="form-success" id="form-success" hidden>Thank you. Your Lady Marcelle booking request has been received — our charter team will contact you shortly.</p>
+          <p class="form-error" id="form-error" hidden role="alert"></p>
+          <p class="form-success" id="form-success" hidden>Thank you. Your LADY MARCELLE booking request has been received — our charter team will contact you shortly.</p>
         </form>
       </div>
     </div>
@@ -194,7 +200,9 @@
 
     <div class="footer-grid footer-grid--simple">
       <div>
-        <h3>Lady Marcelle</h3>
+        <h3>
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+        </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
           <li><a href="booking.html">Book a Trip</a></li>
@@ -224,11 +232,13 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© Lady Marcelle 2026</p>
+      <p>© LADY MARCELLE 2026</p>
       <a href="#">Privacy policy</a>
     </div>
   </footer>
 
+  <script src="js/logo-theme.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/charter-selection.js"></script>
   <script src="js/booking.js"></script>
   <script src="js/premium.js"></script>

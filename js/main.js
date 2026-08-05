@@ -1,26 +1,44 @@
 /* Lady Marcelle — interactions */
 
-const GALLERY_IMAGES = [
-  "images/1667398866777_lady_marcelle1_1600x900.webp",
-  "images/1667398866779_lady_marcelle2_1600x900.webp",
-  "images/1667398866779_lady_marcelle3_1600x900.webp",
-  "images/1667398866780_lady_marcelle4_1600x900.webp",
-  "images/1667398866781_lady_marcelle5_1600x900.webp",
-  "images/1667398866781_lady_marcelle6_1600x900.webp",
-  "images/1667398866782_lady_marcelle7_1600x900.webp",
-  "images/1667398866783_lady_marcelle8_1600x900.webp",
-  "images/1667398866784_lady_marcelle9_1600x900.webp",
-  "images/1667398866785_lady_marcelle10_1600x900.webp",
-  "images/1667398866788_lady_marcelle12_1600x900.webp",
-  "images/1667398866789_lady_marcelle13_1600x900.webp",
-  "images/1667398866789_lady_marcelle14_1600x900.webp",
-  "images/1667398866790_lady_marcelle15_1600x900.webp",
-  "images/1667398866791_lady_marcelle16_1600x900.webp",
-  "images/1667398866792_lady_marcelle17_1600x900.webp",
-  "images/1667398866792_lady_marcelle18_1600x900.webp",
-  "images/1667398866793_lady_marcelle19_1600x900.webp",
-  "images/1667398866794_lady_marcelle20_1600x900.webp",
+const GALLERY_ITEMS = [
+  { src: "images/1667398866779_lady_marcelle2_1600x900.webp", category: "exterior", alt: "Lady Marcelle exterior profile on blue water" },
+  { src: "images/1667398866782_lady_marcelle7_1600x900.webp", category: "exterior", alt: "Lady Marcelle sun deck and jacuzzi" },
+  { src: "images/1667398866783_lady_marcelle8_1600x900.webp", category: "exterior", alt: "Lady Marcelle aerial deck view" },
+  { src: "images/1667398866784_lady_marcelle9_1600x900.webp", category: "exterior", alt: "Lady Marcelle bow from above" },
+  { src: "images/1667398866789_lady_marcelle13_1600x900.webp", category: "exterior", alt: "Lady Marcelle cruising from above" },
+  { src: "images/1667398866792_lady_marcelle18_1600x900.webp", category: "exterior", alt: "Lady Marcelle aft deck dining area" },
+  { src: "images/1667398866777_lady_marcelle1_1600x900.webp", category: "exterior", alt: "Lady Marcelle aerial exterior view on blue water" },
+  { src: "images/1667398866791_lady_marcelle16_1600x900.webp", category: "interior", alt: "Lady Marcelle interior lounge seating" },
+  { src: "images/1667398866792_lady_marcelle17_1600x900.webp", category: "interior", alt: "Lady Marcelle main salon and bar" },
+  { src: "images/1667398866794_lady_marcelle20_1600x900.webp", category: "interior", alt: "Lady Marcelle master cabin" },
+  { src: "images/1667398866790_lady_marcelle15_1600x900.webp", category: "interior", alt: "Lady Marcelle twin stateroom" },
+  { src: "images/1667398866793_lady_marcelle19_1600x900.webp", category: "interior", alt: "Lady Marcelle twin cabin" },
+  { src: "images/1667398866780_lady_marcelle4_1600x900.webp", category: "aerial", alt: "Lady Marcelle aerial view along the coast" },
+  { src: "images/1667398866781_lady_marcelle5_1600x900.webp", category: "aerial", alt: "Lady Marcelle top-down with tender" },
+  { src: "images/1667398866781_lady_marcelle6_1600x900.webp", category: "aerial", alt: "Lady Marcelle aerial view with tender" },
+  { src: "images/1667398866785_lady_marcelle10_1600x900.webp", category: "aerial", alt: "Lady Marcelle aerial profile near islands" },
+  { src: "images/1667398866788_lady_marcelle12_1600x900.webp", category: "aerial", alt: "Lady Marcelle cruising open water" },
+  { src: "images/1667398866789_lady_marcelle14_1600x900.webp", category: "aerial", alt: "Lady Marcelle aerial cruising with wake" },
 ];
+
+const GALLERY_IMAGES = GALLERY_ITEMS.map((item) => item.src);
+
+const GALLERY_PREVIEW_CATEGORIES = [
+  { id: "interior", label: "Interior" },
+  { id: "exterior", label: "Exterior" },
+  { id: "aerial", label: "Aerial" },
+];
+
+const GALLERY_CATEGORIES = [...GALLERY_PREVIEW_CATEGORIES, { id: "all", label: "All" }];
+
+function getGalleryItems() {
+  return GALLERY_ITEMS.slice();
+}
+
+function getGalleryByCategory(category) {
+  if (category === "all") return getGalleryItems();
+  return GALLERY_ITEMS.filter((item) => item.category === category);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initCharterSelection();
@@ -28,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFavorites();
   initEnquireForm();
   initNewsletter();
+  initFeaturesMenu();
   if (!document.querySelector("script[src*='gallery-pro']")) {
     initGallery();
   }
@@ -195,6 +214,8 @@ function initFavorites() {
 function initEnquireForm() {
   const form = document.getElementById("enquire-form");
   const success = document.getElementById("form-success");
+  const error = document.getElementById("form-error");
+  const submitBtn = form?.querySelector('button[type="submit"]');
   if (!form) return;
 
   const today = new Date().toISOString().slice(0, 10);
@@ -207,8 +228,11 @@ function initEnquireForm() {
     if (start.value) end.min = start.value;
   });
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (success) success.hidden = true;
+    if (error) error.hidden = true;
+
     if (start?.value && end?.value && end.value < start.value) {
       end.setCustomValidity("End date must be after start date.");
       form.reportValidity();
@@ -219,10 +243,67 @@ function initEnquireForm() {
       form.reportValidity();
       return;
     }
-    if (success) {
-      success.hidden = false;
+
+    const payload = Object.fromEntries(new FormData(form));
+    const defaultLabel = submitBtn?.textContent || "Send";
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
     }
-    form.reset();
+
+    try {
+      const response = await fetch(`${getApiBase()}/api/enquire`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to send your enquiry.");
+      }
+
+      if (success) success.hidden = false;
+      form.reset();
+      if (start) start.min = today;
+      if (end) {
+        end.min = today;
+      }
+    } catch (err) {
+      if (error) {
+        error.textContent = getFormSubmitError(err);
+        error.hidden = false;
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = defaultLabel;
+      }
+    }
+  });
+}
+
+function initFeaturesMenu() {
+  const menu = document.querySelector(".features-menu");
+  const trigger = menu?.querySelector(".features-menu-trigger");
+  if (!menu || !trigger) return;
+
+  const setOpen = (open) => {
+    menu.classList.toggle("is-open", open);
+    trigger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+
+  trigger.addEventListener("click", () => {
+    setOpen(!menu.classList.contains("is-open"));
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target)) setOpen(false);
+  });
+
+  trigger.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
   });
 }
 

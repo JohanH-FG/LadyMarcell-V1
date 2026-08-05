@@ -3,17 +3,120 @@
 (function () {
   const EXTRA_LIFESTYLE = [];
 
-  function getImages() {
+  function getItems() {
+    if (typeof getGalleryItems === "function") return getGalleryItems();
     const base = typeof GALLERY_IMAGES !== "undefined" ? GALLERY_IMAGES.slice() : [];
     EXTRA_LIFESTYLE.forEach((src) => {
       if (!base.includes(src)) base.push(src);
     });
-    return base;
+    return base.map((src) => ({ src, category: "all", alt: "Lady Marcelle photo" }));
+  }
+
+  function getFiltered(category) {
+    if (typeof getGalleryByCategory === "function") return getGalleryByCategory(category);
+    const items = getItems();
+    if (category === "all") return items;
+    return items.filter((item) => item.category === category);
+  }
+
+  function buildCategoryButtons(container, activeCategory, onSelect) {
+    if (!container) return;
+    const cats =
+      typeof GALLERY_CATEGORIES !== "undefined"
+        ? GALLERY_CATEGORIES
+        : [
+            { id: "interior", label: "Interior" },
+            { id: "exterior", label: "Exterior" },
+            { id: "aerial", label: "Aerial" },
+            { id: "all", label: "All" },
+          ];
+
+    container.innerHTML = "";
+    cats.forEach(({ id, label }) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "gallery-cat-btn" + (id === activeCategory ? " is-active" : "");
+      btn.dataset.galleryCategory = id;
+      btn.textContent = label;
+      btn.addEventListener("click", () => onSelect(id));
+      container.appendChild(btn);
+    });
+  }
+
+  function getPreviewCategories() {
+    if (typeof GALLERY_PREVIEW_CATEGORIES !== "undefined") return GALLERY_PREVIEW_CATEGORIES;
+    return [
+      { id: "interior", label: "Interior" },
+      { id: "exterior", label: "Exterior" },
+      { id: "aerial", label: "Aerial" },
+    ];
+  }
+
+  function renderCategoryPreviews(grid, activeFilter, onOpen) {
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    const previews =
+      activeFilter === "all"
+        ? getPreviewCategories()
+        : getPreviewCategories().filter((cat) => cat.id === activeFilter);
+
+    previews.forEach(({ id, label }) => {
+      const items = getFiltered(id);
+      if (!items.length) return;
+
+      const item = items[0];
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "gallery-category-card";
+      btn.setAttribute("role", "listitem");
+      btn.setAttribute("aria-label", `${label} gallery`);
+
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.alt || label;
+      img.loading = "lazy";
+
+      const caption = document.createElement("span");
+      caption.className = "gallery-category-label";
+      caption.textContent = label;
+
+      btn.appendChild(img);
+      btn.appendChild(caption);
+      btn.addEventListener("click", () => onOpen(id, 0));
+      grid.appendChild(btn);
+    });
+  }
+
+  function getImages() {
+    return getItems().map((item) => item.src);
+  }
+
+  function initObsidianGallerySection(openAt) {
+    const grid = document.getElementById("gallery-category-grid");
+    if (!grid) return;
+    renderCategoryPreviews(grid, "all", (cat, index) => openAt(cat, index));
+  }
+
+  function openGalleryModal(modal) {
+    document.body.appendChild(modal);
+    modal.hidden = false;
+    modal.classList.add("is-open");
+    document.documentElement.classList.add("gallery-modal-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeGalleryModal(modal) {
+    modal.hidden = true;
+    modal.classList.remove("is-open");
+    document.documentElement.classList.remove("gallery-modal-open");
+    document.body.style.overflow = "";
   }
 
   function enhanceModal(theme) {
     const modal = document.getElementById("gallery-modal");
     if (!modal) return null;
+    document.body.appendChild(modal);
     modal.classList.add("gallery-pro", `gallery-pro--${theme}`);
     const body = modal.querySelector(".gallery-modal-body");
     if (body) body.classList.add("gallery-pro-body");
@@ -116,13 +219,11 @@
 
       return {
         open(start = 0) {
-          modal.hidden = false;
-          document.body.style.overflow = "hidden";
+          openGalleryModal(modal);
           show(start);
         },
         close() {
-          modal.hidden = true;
-          document.body.style.overflow = "";
+          closeGalleryModal(modal);
         },
         show,
       };
@@ -167,77 +268,82 @@
 
       return {
         open(start = 0) {
-          modal.hidden = false;
-          document.body.style.overflow = "hidden";
+          openGalleryModal(modal);
           show(start);
         },
         close() {
-          modal.hidden = true;
-          document.body.style.overflow = "";
+          closeGalleryModal(modal);
         },
         show,
       };
     },
 
-    mountObsidian(modal, images) {
-      const body = modal.querySelector(".gallery-modal-body");
+    mountObsidian(modal) {
       const main = modal.querySelector(".gallery-main");
       const mainImg = modal.querySelector("#gallery-main-img");
+      const modalCategories = modal.querySelector("#gallery-modal-categories");
       modal.querySelector("#gallery-thumbs")?.remove();
+      modal.querySelector(".gallery-vstrip")?.remove();
 
-      let strip = modal.querySelector(".gallery-vstrip");
-      if (!strip) {
-        strip = document.createElement("div");
-        strip.className = "gallery-vstrip";
-        body?.insertBefore(strip, body.firstChild);
-      }
-      strip.innerHTML = "";
-
+      let category = "all";
       let index = 0;
+      let items = getFiltered(category);
+
+      const syncCategoryButtons = () => {
+        buildCategoryButtons(modalCategories, category, setCategory);
+      };
+
       const show = (i) => {
-        index = (i + images.length) % images.length;
+        if (!items.length) return;
+        index = (i + items.length) % items.length;
+        const item = items[index];
         main?.classList.add("is-swapping");
         setTimeout(() => {
           if (mainImg) {
-            mainImg.src = images[index];
-            // restart ken burns
+            mainImg.src = item.src;
+            mainImg.alt = item.alt || `Lady Marcelle photo ${index + 1}`;
             mainImg.style.animation = "none";
             void mainImg.offsetWidth;
             mainImg.style.animation = "";
           }
           main?.classList.remove("is-swapping");
         }, 140);
-        strip.querySelectorAll("button").forEach((b, bi) => b.classList.toggle("is-active", bi === index));
         const counter = modal.querySelector("#gallery-counter span");
-        if (counter) counter.textContent = `${index + 1} / ${images.length}`;
+        if (counter) counter.textContent = `${index + 1} / ${items.length}`;
       };
 
-      images.forEach((src, i) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        const img = document.createElement("img");
-        img.src = src;
-        img.loading = "lazy";
-        img.alt = `Thumb ${i + 1}`;
-        btn.appendChild(img);
-        btn.addEventListener("click", () => show(i));
-        strip.appendChild(btn);
-      });
+      const open = (cat = "all", start = 0) => {
+        category = cat;
+        items = getFiltered(category);
+        index = start;
+        syncCategoryButtons();
+        openGalleryModal(modal);
+        show(start);
+      };
+
+      const setCategory = (next) => {
+        category = next;
+        items = getFiltered(category);
+        index = 0;
+        syncCategoryButtons();
+        if (items.length) show(0);
+        else if (mainImg) mainImg.removeAttribute("src");
+      };
+
+      buildCategoryButtons(modalCategories, category, setCategory);
 
       modal.querySelector("#gallery-prev")?.addEventListener("click", () => show(index - 1));
       modal.querySelector("#gallery-next")?.addEventListener("click", () => show(index + 1));
 
       return {
-        open(start = 0) {
-          modal.hidden = false;
-          document.body.style.overflow = "hidden";
-          show(start);
-        },
+        open,
         close() {
-          modal.hidden = true;
-          document.body.style.overflow = "";
+          closeGalleryModal(modal);
         },
         show,
+        setCategory,
+        getIndex: () => index,
+        getCategory: () => category,
       };
     },
   };
@@ -262,27 +368,33 @@
         ? LadyGallery.mountAether(modal, images)
         : theme === "signal"
           ? LadyGallery.mountSignal(modal, images)
-          : LadyGallery.mountObsidian(modal, images);
+          : LadyGallery.mountObsidian(modal);
+
+    if (theme === "obsidian") {
+      initObsidianGallerySection((category, index) => api.open(category, index));
+    }
 
     let idx = 0;
     const show = api.show;
     api.show = (i) => {
       show(i);
-      idx = ((i % images.length) + images.length) % images.length;
+      idx = typeof api.getIndex === "function" ? api.getIndex() : ((i % images.length) + images.length) % images.length;
     };
 
-    document.querySelectorAll("[data-open-gallery]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        api.open(0);
+    if (theme !== "obsidian") {
+      document.querySelectorAll("[data-open-gallery]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          api.open(0);
+        });
       });
-    });
 
-    document.querySelectorAll("[data-gallery-index]").forEach((el) => {
-      el.addEventListener("click", () => {
-        api.open(Number(el.getAttribute("data-gallery-index") || 0));
+      document.querySelectorAll("[data-gallery-index]").forEach((el) => {
+        el.addEventListener("click", () => {
+          api.open(Number(el.getAttribute("data-gallery-index") || 0));
+        });
       });
-    });
+    }
 
     modal.querySelectorAll("[data-close-gallery]").forEach((el) => {
       el.addEventListener("click", (e) => {

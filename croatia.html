@@ -13,21 +13,31 @@
   <link rel="stylesheet" href="css/premium.css" />
   <link rel="stylesheet" href="css/experience.css" />
   <link rel="stylesheet" href="css/layout-shared.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
 </head>
 <body class="croatia-page theme-obsidian">
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <button class="icon-btn menu-toggle" aria-label="Open menu" type="button">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-            <path d="M0 1h22M0 8h22M0 15h22" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
+        <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="site-mobile-nav" aria-label="Open menu">
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
         </button>
-        <nav class="header-nav" aria-label="Primary">
+        <nav class="header-nav" id="site-mobile-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
           <a href="booking.html">Book a Trip</a>
         </nav>
       </div>
-      <a href="index.html" class="logo" aria-label="Lady Marcelle home">Lady Marcelle</a>
+      <a href="index.html" class="logo" aria-label="Lady Marcelle home">
+        <img src="images/logos/lm-full-gold.png" alt="" class="brand-logo brand-logo--header" data-brand-logo="full" width="220" height="48" />
+      </a>
+
+      <div class="header-right">
+        <button type="button" class="logo-color-toggle" aria-label="Switch logo color">
+          <span class="logo-color-toggle-swatch" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -44,7 +54,7 @@
       <div class="croatia-hero-copy">
         <h1>Croatia</h1>
         <p>Set sail on a luxury yacht charter through the enchanting Croatia Islands. Navigate crystal-clear Adriatic waters, explore ancient walled cities, secluded coves, and stunning beaches.</p>
-        <a href="booking.html?destination=Croatia" class="croatia-hero-cta">Choose your yacht</a>
+        <a href="booking.html?destination=Croatia" class="croatia-hero-cta">Book a Trip</a>
       </div>
 
       <a href="#guide" class="croatia-scroll">
@@ -68,8 +78,12 @@
       <p>Cruising the stunning coastlines of Croatia is a bucket list must for any luxury traveler. You will set sail aboard your superyacht and wake each day to a new land bursting with undiscovered treasures. From the deep emerald waters of the Adriatic to the ancient vineyards and olive groves, you can explore a wild beauty that’s unparalleled in the Mediterranean. With some of the clearest waters in the region, it’s no wonder this destination has become a favorite among yacht enthusiasts and the perfect complement to an Italian or Montenegrin charter.</p>
       <p>For an unforgettable journey, you can embark on a one-way charter from Venice to <a href="#">Porto Montenegro</a>, traveling along the Adriatic Sea and taking in the best of Croatia along the way. Or, you can experience the best of the Dalmatian Islands with a yacht rental that starts and finishes in Croatia. In one week, you can explore the region’s rocky islets, hidden beaches, stunning cities, and much more. With the perfect mix of activity and relaxation, <strong>a yacht charter in Croatia</strong> is the ideal way to experience the best of this beautiful destination.</p>
 
-      <h3>How can Lady Marcelle help you?</h3>
-      <p>At Lady Marcelle, we have the resources and experience necessary to plan your <strong>yacht charter in Croatia</strong>. <a href="#">Our local office team</a> and charter experts are on hand to help you create a remarkable experience by finding the ideal yacht and devising an unforgettable itinerary. With the <a href="#">largest yacht charter fleet in the world</a>, as well as in Croatia, you can count on us to make your Croatian holiday a success.</p>
+      <h3 class="brand-logo-heading">
+        <span>How can</span>
+        <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="200" height="44" />
+        <span>help you?</span>
+      </h3>
+      <p>At LADY MARCELLE, we have the resources and experience necessary to plan your <strong>yacht charter in Croatia</strong>. <a href="#">Our local office team</a> and charter experts are on hand to help you create a remarkable experience by finding the ideal yacht and devising an unforgettable itinerary. With the <a href="#">largest yacht charter fleet in the world</a>, as well as in Croatia, you can count on us to make your Croatian holiday a success.</p>
     </div>
   </section>
 
@@ -98,7 +112,7 @@
       <p><strong>Best Local Dish:</strong> <a href="#">Strukli</a> is a savory pastry made with soft cheese and dough. It is usually served with a side of sour cream. Other popular dishes include čobanac (a stew of meat, vegetables and beans), sarma (stuffed cabbage rolls) and pašticada (a beef stew with a sweet-and-sour sauce).</p>
       <p><strong>Local Culture:</strong> <a href="#">Croatia</a> is a destination where you can perfectly combine a cultural experience with a relaxing cruise. From the coastal walled cities of Dubrovnik, Trogir and Split, to the historic towns of <a href="#">Rovinj</a> and <a href="#">Porec</a>, there’s something for everyone to explore and appreciate. A must-do experience in Hvar, is to visit the 16th-century Spanjola Fortress, which offers stunning views of the old town and harbor.</p>
       <p><strong>Best Beach:</strong> It is impossible to say which beach is the best in Croatia since there are so many beautiful beaches to choose from. Don’t miss <a href="#">Zlatni Rat Beach</a>, located on the island of Brač in the Dalmatian Coast. It is known for its distinctive shape, which extends 500 meters into the Adriatic Sea.</p>
-      <p><strong>Lady Marcelle Recommends:</strong> Boasting over 140 islands, islets and reefs, the Kornati archipelago is a paradise for yachting enthusiasts. The crystal-clear waters, stunning landscapes, and abundance of wildlife make it a perfect place for swimming, snorkeling, and exploring. The natural beauty of the islands and their untouched nature provide an unforgettable experience that will stay with you for a lifetime.</p>
+      <p><strong>LADY MARCELLE Recommends:</strong> Boasting over 140 islands, islets and reefs, the Kornati archipelago is a paradise for yachting enthusiasts. The crystal-clear waters, stunning landscapes, and abundance of wildlife make it a perfect place for swimming, snorkeling, and exploring. The natural beauty of the islands and their untouched nature provide an unforgettable experience that will stay with you for a lifetime.</p>
     </div>
   </section>
 
@@ -138,7 +152,10 @@
         </article>
         <article class="article-card">
           <img src="images/1667398866780_lady_marcelle4_1600x900.webp" alt="" />
-          <h3>Lady Marcelle Insider: What You Need To Know Ahead Of A Yacht Charter In Croatia</h3>
+          <h3 class="brand-logo-heading">
+            <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="180" height="40" />
+            <span>Insider: What You Need To Know Ahead Of A Yacht Charter In Croatia</span>
+          </h3>
           <p>Croatia is the perfect destination for a yacht charter for endless reasons. Accessed easily by yacht, the Adriatic...</p>
         </article>
         <article class="article-card">
@@ -165,8 +182,12 @@
 
   <!-- Contact CTA -->
   <section class="croatia-contact" id="contact">
-    <h2>Ready to charter Lady Marcelle?</h2>
-    <p>Book your dates aboard Lady Marcelle and explore Croatia’s Adriatic coast in style.</p>
+    <h2 class="brand-logo-heading brand-logo-heading--center">
+      <span>Ready to charter</span>
+      <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="220" height="48" />
+      <span>?</span>
+    </h2>
+    <p>Book your dates aboard LADY MARCELLE and explore Croatia’s Adriatic coast in style.</p>
     <a href="booking.html?destination=Croatia" class="btn btn-enquire croatia-book-btn">Book Now</a>
   </section>
 
@@ -175,15 +196,15 @@
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
       <details open>
-        <summary>Can I Charter A Yacht In Croatia With Lady Marcelle?</summary>
+        <summary>Can I Charter A Yacht In Croatia With LADY MARCELLE?</summary>
         <div class="faq-answer">
-          <p>Yes, Lady Marcelle manages the largest fleet in Croatia and also provides access to the full fleet of luxury yachts available for charter throughout the country. This includes motor yachts, sailing yachts, and luxury catamarans across a wide range of sizes and price points, cruising throughout Croatia’s major yachting regions and coastline, from Split and Dubrovnik to Hvar, Vis, Brač, Korčula, and the Kornati Islands.</p>
-          <p>With an office in Croatia and a global team of experienced Charter Consultants, Lady Marcelle combines local market expertise with international reach to provide tailored yacht recommendations, up-to-date market insight, and seamless charter planning throughout Croatia.</p>
+          <p>Yes, LADY MARCELLE manages the largest fleet in Croatia and also provides access to the full fleet of luxury yachts available for charter throughout the country. This includes motor yachts, sailing yachts, and luxury catamarans across a wide range of sizes and price points, cruising throughout Croatia’s major yachting regions and coastline, from Split and Dubrovnik to Hvar, Vis, Brač, Korčula, and the Kornati Islands.</p>
+          <p>With an office in Croatia and a global team of experienced Charter Consultants, LADY MARCELLE combines local market expertise with international reach to provide tailored yacht recommendations, up-to-date market insight, and seamless charter planning throughout Croatia.</p>
         </div>
       </details>
       <details>
         <summary>What Types Of Yachts Can I Charter In Croatia?</summary>
-        <div class="faq-answer"><p>From agile motor yachts ideal for island hopping to sailing yachts and spacious catamarans, Lady Marcelle can arrange charter vessels to suit every itinerary and group size along the Croatian coast.</p></div>
+        <div class="faq-answer"><p>From agile motor yachts ideal for island hopping to sailing yachts and spacious catamarans, LADY MARCELLE can arrange charter vessels to suit every itinerary and group size along the Croatian coast.</p></div>
       </details>
       <details>
         <summary>What Is The Best Time Of Year To Charter A Yacht In Croatia?</summary>
@@ -245,7 +266,9 @@
 
     <div class="footer-grid footer-grid--simple">
       <div>
-        <h3>Lady Marcelle</h3>
+        <h3>
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+        </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
           <li><a href="booking.html">Book a Trip</a></li>
@@ -275,13 +298,14 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© Lady Marcelle 2026</p>
+      <p>© LADY MARCELLE 2026</p>
       <a href="#">Privacy policy</a>
     </div>
   </footer>
 
   <script src="js/destination-maps.js"></script>
   <script src="js/croatia.js"></script>
+  <script src="js/logo-theme.js"></script>
   <script src="js/premium.js"></script>
   <script src="js/gallery-pro.js"></script>
 </body>

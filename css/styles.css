@@ -12,6 +12,8 @@
   --font-sans: "Outfit", system-ui, sans-serif;
   --font-serif: "Cormorant Infant", Georgia, serif;
   --header-h: 64px;
+  --section-nav-h: 0px;
+  --sticky-top-offset: 64px;
   --sidebar-w: 320px;
 }
 
@@ -90,6 +92,88 @@ ul {
   justify-content: flex-end;
 }
 
+.logo-color-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.logo-color-toggle:hover,
+.logo-color-toggle:focus-visible {
+  border-color: rgba(var(--blue-rgb), 0.45);
+  box-shadow: 0 4px 14px rgba(var(--navy-rgb), 0.1);
+  outline: none;
+}
+
+.logo-color-toggle:active {
+  transform: scale(0.96);
+}
+
+.logo-color-toggle-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--navy-rgb), 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+body.logo-color-white .site-header {
+  background: var(--navy-deep);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body.logo-color-white .site-header .header-nav a {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+body.logo-color-white .site-header .header-nav a:hover {
+  color: #fff;
+}
+
+body.logo-color-white .mobile-nav-toggle-bar {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+body.logo-color-white .logo-color-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.logo-color-navy .brand-logo--hero,
+body.logo-color-black .brand-logo--hero,
+body.logo-color-navy .brand-logo--modal,
+body.logo-color-black .brand-logo--modal {
+  filter: drop-shadow(0 2px 14px rgba(255, 255, 255, 0.5));
+}
+
+body.logo-color-white .brand-logo--inline,
+body.logo-color-white .brand-logo--section,
+body.logo-color-white .brand-logo--footer {
+  filter: drop-shadow(0 0 1px rgba(0, 26, 61, 0.4));
+}
+
+body.logo-color-white .theme-obsidian .page-layout .sidebar-inner {
+  background: var(--navy-deep);
+  border-left-color: rgba(255, 255, 255, 0.12);
+  color: var(--foam);
+}
+
+body.logo-color-white .theme-obsidian .sidebar-title,
+body.logo-color-white .theme-obsidian .sidebar-sub,
+body.logo-color-white .theme-obsidian .sidebar-rate,
+body.logo-color-white .theme-obsidian .sidebar-help,
+body.logo-color-white .theme-obsidian .sidebar-link {
+  color: rgba(255, 255, 255, 0.88);
+}
+
 .header-nav {
   display: flex;
   gap: 22px;
@@ -115,6 +199,69 @@ ul {
   letter-spacing: 0.06em;
   color: var(--navy);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-logo--header {
+  height: clamp(26px, 3.2vw, 38px);
+}
+
+.brand-logo--hero {
+  height: clamp(56px, 10vw, 120px);
+}
+
+.brand-logo--section {
+  height: clamp(34px, 4.5vw, 52px);
+}
+
+.brand-logo--sidebar {
+  height: clamp(30px, 3.8vw, 42px);
+}
+
+.brand-logo--footer {
+  height: 34px;
+}
+
+.brand-logo--modal {
+  height: clamp(32px, 4vw, 44px);
+}
+
+.brand-logo--inline {
+  display: inline-block;
+  vertical-align: middle;
+  height: clamp(28px, 3.5vw, 44px);
+  width: auto;
+}
+
+.brand-logo-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em 0.55em;
+}
+
+.brand-logo-heading--center {
+  justify-content: center;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-name-text {
+  font-variant: normal;
+  letter-spacing: 0.08em;
 }
 
 .icon-btn {
@@ -809,6 +956,7 @@ ul {
   align-items: center;
   gap: 10px;
   border: 1px solid #111;
+  border-radius: 18px;
   background: #fff;
   padding: 14px 40px;
   font-size: 12px;
@@ -1057,6 +1205,13 @@ ul {
   margin-top: 14px;
   font-size: 14px;
   color: #0a7a3e;
+  text-align: center;
+}
+
+.form-error {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #b42318;
   text-align: center;
 }
 

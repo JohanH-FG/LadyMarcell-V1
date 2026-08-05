@@ -13,21 +13,31 @@
   <link rel="stylesheet" href="css/premium.css" />
   <link rel="stylesheet" href="css/experience.css" />
   <link rel="stylesheet" href="css/layout-shared.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
 </head>
 <body class="croatia-page theme-obsidian">
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <button class="icon-btn menu-toggle" aria-label="Open menu" type="button">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-            <path d="M0 1h22M0 8h22M0 15h22" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
+        <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="site-mobile-nav" aria-label="Open menu">
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
+          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
         </button>
-        <nav class="header-nav" aria-label="Primary">
+        <nav class="header-nav" id="site-mobile-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
           <a href="booking.html">Book a Trip</a>
         </nav>
       </div>
-      <a href="index.html" class="logo" aria-label="Lady Marcelle home">Lady Marcelle</a>
+      <a href="index.html" class="logo" aria-label="Lady Marcelle home">
+        <img src="images/logos/lm-full-gold.png" alt="" class="brand-logo brand-logo--header" data-brand-logo="full" width="220" height="48" />
+      </a>
+
+      <div class="header-right">
+        <button type="button" class="logo-color-toggle" aria-label="Switch logo color">
+          <span class="logo-color-toggle-swatch" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -44,7 +54,7 @@
       <div class="croatia-hero-copy">
         <h1>Montenegro</h1>
         <p>Discover the enchanting coastlines of Montenegro with our luxury yacht charters. Cruise through historic towns, crystal-clear waters, and beautiful bays.</p>
-        <a href="booking.html?destination=Montenegro" class="croatia-hero-cta">Choose your yacht</a>
+        <a href="booking.html?destination=Montenegro" class="croatia-hero-cta">Book a Trip</a>
       </div>
 
       <a href="#guide" class="croatia-scroll">
@@ -87,7 +97,7 @@
       <p><strong>Best Local Dish:</strong> The tiny village of <a href="#">Njeguši</a>, located within the Lovćen national park, is famous for its cheeses and smoked ham. Indulge in the local delicacies, best enjoyed with a glass of the region's dry red wine.</p>
       <p><strong>Local Culture:</strong> A passionate yachtsman, King Nikola's palace is now a part of the <a href="#">National Museum of Montenegro</a>, showcasing fascinating artifacts of Montenegrin history and stunning royal gardens.</p>
       <p><strong>Best Beach:</strong> The curved pink beaches of <a href="#">Aman Sveti Stefan</a> are a must see. Boasting lush, exotic botanical gardens and immaculate luxury resorts, this area is the most photographed spot in Montenegro and was once the summer residence of Queen Marija Karađorđević.</p>
-      <p><strong>Lady Marcelle Recommends:</strong> As you cruise through the impressive Bay of Kotor, you'll arrive in the charming, medieval town of <a href="#">Budva</a>. Step ashore and explore the cobblestoned streets and centuries-old architecture, before heading to one of the cafés lining the waterfront to rub shoulders with the locals. After a leisurely afternoon, return to your yacht and relax as you sail away.</p>
+      <p><strong>LADY MARCELLE Recommends:</strong> As you cruise through the impressive Bay of Kotor, you'll arrive in the charming, medieval town of <a href="#">Budva</a>. Step ashore and explore the cobblestoned streets and centuries-old architecture, before heading to one of the cafés lining the waterfront to rub shoulders with the locals. After a leisurely afternoon, return to your yacht and relax as you sail away.</p>
     </div>
   </section>
 
@@ -127,7 +137,10 @@
         </article>
         <article class="article-card">
           <img src="images/5febad73d3b8f_montenegro_e1534419629839_3ee03146ad.webp" alt="" />
-          <h3>Lady Marcelle Insider: What You Need To Know Ahead Of A Yacht Charter In Montenegro</h3>
+          <h3 class="brand-logo-heading">
+            <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="180" height="40" />
+            <span>Insider: What You Need To Know Ahead Of A Yacht Charter In Montenegro</span>
+          </h3>
           <p>Montenegro is the perfect destination for a yacht charter for endless reasons. Accessed easily by yacht, the Adriatic...</p>
         </article>
         <article class="article-card">
@@ -142,8 +155,12 @@
 
   <!-- Contact CTA -->
   <section class="croatia-contact" id="contact">
-    <h2>Ready to charter Lady Marcelle?</h2>
-    <p>Book your dates aboard Lady Marcelle and explore Montenegro's Adriatic coast in style.</p>
+    <h2 class="brand-logo-heading brand-logo-heading--center">
+      <span>Ready to charter</span>
+      <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="220" height="48" />
+      <span>?</span>
+    </h2>
+    <p>Book your dates aboard LADY MARCELLE and explore Montenegro's Adriatic coast in style.</p>
     <a href="booking.html?destination=Montenegro" class="btn btn-enquire croatia-book-btn">Book Now</a>
   </section>
 
@@ -152,10 +169,10 @@
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
       <details open>
-        <summary>Can I Charter A Yacht In Montenegro With Lady Marcelle?</summary>
+        <summary>Can I Charter A Yacht In Montenegro With LADY MARCELLE?</summary>
         <div class="faq-answer">
-          <p>Yes, Lady Marcelle provides access to a wide fleet of luxury yachts available for charter throughout Montenegro, including motor yachts, sailing yachts, and catamarans cruising the Bay of Kotor, Budva Riviera, and beyond.</p>
-          <p>With experienced Charter Consultants and local knowledge of Porto Montenegro and the Adriatic coast, Lady Marcelle can tailor yacht recommendations and itineraries for your Montenegrin charter.</p>
+          <p>Yes, LADY MARCELLE provides access to a wide fleet of luxury yachts available for charter throughout Montenegro, including motor yachts, sailing yachts, and catamarans cruising the Bay of Kotor, Budva Riviera, and beyond.</p>
+          <p>With experienced Charter Consultants and local knowledge of Porto Montenegro and the Adriatic coast, LADY MARCELLE can tailor yacht recommendations and itineraries for your Montenegrin charter.</p>
         </div>
       </details>
       <details>
@@ -194,7 +211,9 @@
 
     <div class="footer-grid footer-grid--simple">
       <div>
-        <h3>Lady Marcelle</h3>
+        <h3>
+          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+        </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
           <li><a href="booking.html">Book a Trip</a></li>
@@ -224,13 +243,14 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© Lady Marcelle 2026</p>
+      <p>© LADY MARCELLE 2026</p>
       <a href="#">Privacy policy</a>
     </div>
   </footer>
 
   <script src="js/destination-maps.js"></script>
   <script src="js/croatia.js"></script>
+  <script src="js/logo-theme.js"></script>
   <script src="js/premium.js"></script>
   <script src="js/gallery-pro.js"></script>
 </body>

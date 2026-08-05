@@ -110,12 +110,17 @@ body.theme-obsidian::after {
   font-size: clamp(20px, 2.6vw, 32px);
   color: var(--deep);
   text-shadow: none;
-  transition: color 0.3s;
+  transition: opacity 0.3s;
 }
 
 .theme-obsidian .logo:hover {
   color: var(--blue);
   text-shadow: none;
+  opacity: 0.88;
+}
+
+.theme-obsidian .logo .brand-logo {
+  filter: none;
 }
 
 .theme-obsidian .header-nav a,
@@ -198,13 +203,7 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian .hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, transparent 40%, rgba(var(--navy-deep-rgb), 0.85)),
-    linear-gradient(90deg, rgba(var(--navy-deep-rgb), 0.35), transparent 40%);
-  pointer-events: none;
+  display: none;
 }
 
 .theme-obsidian .hero-img {
@@ -337,7 +336,7 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian .main-col > .content-section,
-.theme-obsidian .main-col > .photo-rail-wrap,
+.theme-obsidian .main-col > .gallery-section,
 .theme-obsidian .main-col > .features-marquee-section {
   position: relative;
   box-sizing: border-box;
@@ -361,7 +360,7 @@ body.theme-obsidian::after {
   padding-bottom: 48px !important;
 }
 
-.theme-obsidian .photo-rail-wrap {
+.theme-obsidian .gallery-section {
   background: var(--sand-warm) !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
@@ -374,6 +373,16 @@ body.theme-obsidian::after {
   border-top: none !important;
   padding-top: 48px !important;
   padding-bottom: 48px !important;
+  overflow: visible !important;
+}
+
+.theme-obsidian .features-menu-trigger {
+  color: rgba(var(--navy-rgb), 0.55);
+}
+
+.theme-obsidian .features-menu-popup {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(var(--blue-rgb), 0.18);
 }
 
 .theme-obsidian .destinations-section {
@@ -385,6 +394,15 @@ body.theme-obsidian::after {
 
 .theme-obsidian .enquire-section {
   background: var(--sand-warm);
+}
+
+.theme-obsidian .enquire-card h2.brand-logo-heading {
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.theme-obsidian .gallery-modal-header-center .brand-logo-wrap {
+  margin-bottom: 8px;
 }
 
 .theme-obsidian .enquire-card h2 {

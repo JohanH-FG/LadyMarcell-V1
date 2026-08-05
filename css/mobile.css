@@ -1,0 +1,689 @@
+/* Lady Marcelle — mobile & tablet overrides (desktop layout unchanged above breakpoints) */
+
+html.gallery-modal-open,
+html.gallery-modal-open body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+/* —— Tablet & mobile: prevent horizontal overflow + sticky header —— */
+@media (max-width: 1100px) {
+  body.theme-obsidian {
+    max-width: 100%;
+    padding-top: var(--header-h, 64px);
+  }
+
+  body.theme-obsidian .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    z-index: 110;
+  }
+
+  .theme-obsidian .hero-section-nav.is-fixed {
+    position: fixed;
+    top: var(--header-h, 64px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+  }
+
+  .theme-obsidian .page-layout,
+  .theme-obsidian .page-layout .main-col {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
+  }
+
+  .theme-obsidian .main-col > .content-section,
+  .theme-obsidian .main-col > .gallery-section,
+  .theme-obsidian .main-col > .features-marquee-section,
+  .theme-obsidian .main-col > .yacht-blueprint-section,
+  .theme-obsidian .main-col > .destinations-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .theme-obsidian .obsidian-hero,
+  .theme-obsidian .hero-bottom-band {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .theme-obsidian .destinations-section {
+    padding-right: clamp(20px, 3.5vw, 48px) !important;
+  }
+}
+
+/* —— Tablet & small laptop: keep desktop enquire sidebar, tighten main padding —— */
+@media (max-width: 1100px) and (min-width: 769px) {
+  /* Single column + fixed sidebar overlay — avoids squeezing main content to zero */
+  .theme-obsidian .page-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .theme-obsidian .page-layout .sidebar {
+    position: static;
+    width: 0;
+    min-width: 0;
+    overflow: visible;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .theme-obsidian .page-layout .sidebar-inner {
+    position: fixed;
+    right: 0;
+    width: 280px;
+  }
+
+  .theme-obsidian .page-layout .main-col {
+    padding-left: clamp(20px, 3.5vw, 48px);
+    padding-right: calc(280px + clamp(16px, 2vw, 32px));
+    min-width: 0;
+  }
+
+  .theme-obsidian .dest-grid {
+    max-width: 100%;
+  }
+
+  .theme-obsidian .main-col > .destinations-section,
+  .theme-obsidian .destinations-section {
+    padding-right: clamp(20px, 3.5vw, 48px) !important;
+  }
+
+  /* Reveal animations can leave sections invisible if IO never fires in a narrow column */
+  .theme-obsidian [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* —— Mobile layout (sidebar stacks above content at 768px and below) —— */
+@media (max-width: 980px) {
+  .theme-obsidian .obsidian-hero {
+    min-height: min(92vh, 620px);
+  }
+
+  .theme-obsidian .main-col > .content-section,
+  .theme-obsidian .main-col > .gallery-section,
+  .theme-obsidian .main-col > .features-marquee-section,
+  .theme-obsidian .main-col > .yacht-blueprint-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .theme-obsidian .main-col > .destinations-section {
+    padding-right: 20px !important;
+    overflow-x: hidden;
+  }
+
+  .theme-obsidian .dest-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
+    width: 100%;
+    gap: 14px;
+  }
+
+  .theme-obsidian .dest-card {
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* —— Gallery modal: true full-screen overlay —— */
+  .gallery-modal.is-open {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10000 !important;
+    display: grid !important;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    grid-template-columns: 1fr !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .gallery-modal.is-open .gallery-modal-header,
+  .gallery-modal.is-open .theme-obsidian .gallery-modal-header {
+    grid-row: 1;
+    position: relative;
+    flex-shrink: 0;
+    padding: 12px 12px 10px;
+    overflow: hidden;
+  }
+
+  .theme-obsidian .gallery-modal-header-center {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 44px 0 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .theme-obsidian .gallery-modal-header-center p {
+    font-size: 11px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .theme-obsidian .gallery-modal-categories {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-top: 10px;
+    padding: 2px 2px 6px;
+  }
+
+  .theme-obsidian .gallery-modal-categories .gallery-cat-btn {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+
+  .theme-obsidian .gallery-modal-categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .theme-obsidian .gallery-modal-actions {
+    top: 10px;
+    right: 10px;
+  }
+
+  .brand-logo--modal {
+    height: 32px;
+  }
+
+  .gallery-modal.is-open .gallery-modal-body,
+  .gallery-modal.is-open .gallery-pro-body,
+  .gallery-modal.is-open .theme-obsidian .gallery-pro-body {
+    grid-row: 2;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    gap: 0 !important;
+  }
+
+  .gallery-modal.is-open .gallery-main,
+  .gallery-modal.is-open .theme-obsidian .gallery-main {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+
+  .gallery-modal.is-open .gallery-main img,
+  .gallery-modal.is-open .theme-obsidian .gallery-main img {
+    display: block !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .gallery-modal.is-open .gallery-nav {
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
+  }
+
+  .gallery-modal.is-open .gallery-nav.prev {
+    left: 8px;
+  }
+
+  .gallery-modal.is-open .gallery-nav.next {
+    right: 8px;
+  }
+
+  .gallery-modal.is-open .gallery-counter {
+    bottom: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .theme-obsidian .hero-specs-bar {
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .theme-obsidian .hero-specs-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .yacht-blueprint-section {
+    padding: 3rem 1.25rem;
+  }
+}
+
+/* —— Mobile navigation —— */
+.mobile-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  margin: 0 -8px 0 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.mobile-nav-toggle:hover,
+.mobile-nav-toggle:focus-visible {
+  background: rgba(var(--navy-rgb), 0.06);
+  outline: none;
+}
+
+.mobile-nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.site-header.is-mobile-nav-open .mobile-nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-mobile-nav-open .mobile-nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-mobile-nav-open .mobile-nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  html,
+  body.theme-obsidian {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .mobile-nav-toggle {
+    display: flex;
+  }
+
+  .header-left {
+    gap: 12px;
+  }
+
+  .header-inner {
+    padding: 0 16px;
+  }
+
+  .header-left .header-nav {
+    display: flex !important;
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 12px 32px rgba(var(--navy-rgb), 0.1);
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s;
+  }
+
+  .site-header.is-mobile-nav-open .header-left .header-nav {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .header-left .header-nav a {
+    padding: 14px 20px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-left .header-nav a:last-child {
+    border-bottom: none;
+  }
+
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+
+  /* Hero & section nav — full bleed, no sidebar gutter */
+  .theme-obsidian .obsidian-hero,
+  .theme-obsidian .hero-bottom-band {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .theme-obsidian .obsidian-hero .hero {
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .theme-obsidian .obsidian-hero {
+    min-height: min(85vh, 520px);
+    padding-bottom: 40px;
+  }
+
+  .theme-obsidian .obsidian-hero-content {
+    padding: 24px 16px 8px;
+  }
+
+  .theme-obsidian .hero-nav-sticky-host {
+    margin-top: -40px;
+  }
+
+  .theme-obsidian .hero-section-nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 12px 16px;
+  }
+
+  .theme-obsidian .hero-section-nav.is-fixed {
+    padding: 12px 16px;
+  }
+
+  .theme-obsidian .hero-section-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .theme-obsidian .hero-section-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 6px 14px;
+    font-size: 10px;
+  }
+
+  .theme-obsidian .hero-specs-bar {
+    padding: 18px 16px;
+  }
+
+  .theme-obsidian .hero-spec-item {
+    padding: 0 20px;
+  }
+
+  /* Enquire sidebar — stack above content on phones only */
+  .theme-obsidian .page-layout {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .theme-obsidian .page-layout .main-col {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .theme-obsidian .page-layout .sidebar {
+    position: static !important;
+    order: -1;
+    width: 100%;
+    max-width: 100%;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .theme-obsidian .page-layout,
+  .theme-obsidian .page-layout .main-col {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .theme-obsidian .page-layout .sidebar-inner {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+    max-height: none;
+    transform: none;
+    pointer-events: auto;
+    border-left: none;
+    overflow: visible;
+    padding: 16px 16px 20px;
+  }
+
+  .theme-obsidian [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .selection-date-row {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-obsidian .dest-card {
+    aspect-ratio: 4 / 5;
+  }
+
+  .dest-card span {
+    font-size: clamp(20px, 6vw, 26px);
+    letter-spacing: 0.04em;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  /* Gallery */
+  .theme-obsidian .gallery-category-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .theme-obsidian .gallery-category-card {
+    flex: 1 1 auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  .theme-obsidian .gallery-modal-actions .btn-enquire-sm {
+    display: none;
+  }
+
+  .gallery-modal.is-open .close-gallery {
+    font-size: 28px;
+    line-height: 1;
+    padding: 4px 6px;
+  }
+
+  /* Enquire section */
+  .enquire-section {
+    padding: 48px 16px;
+    min-height: auto;
+  }
+
+  .enquire-card {
+    padding: 28px 20px 24px;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 40px 16px 32px;
+  }
+
+  /* Destination pages */
+  .charter-search {
+    padding: 32px 16px 48px;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-item,
+  .filter-toggle {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    justify-content: space-between;
+  }
+
+  .filter-more {
+    margin-left: 0;
+    border-bottom: none;
+  }
+
+  .croatia-guide {
+    padding: 48px 16px 56px;
+  }
+
+  .dest-croatia-list {
+    padding: 32px 16px !important;
+  }
+
+  /* Booking page */
+  .booking-hero {
+    padding: 32px 16px 24px;
+  }
+
+  .booking-section {
+    padding: 0 16px 56px;
+  }
+
+  .booking-card {
+    padding: 24px 18px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Yacht blueprint — vertical rotation on small phones only; tablets stay horizontal */
+  .yacht-blueprint-section {
+    padding: 2.5rem 0.75rem;
+    overflow: visible;
+  }
+
+  .blueprint-stage {
+    width: min(92vw, 440px);
+    aspect-ratio: 555 / 1024;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+  }
+
+  .blueprint-stage .blueprint-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(min(92vw, 440px) * 1024 / 555);
+    max-width: none;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center center;
+  }
+
+  .blueprint-stage .bp-tooltip {
+    width: min(240px, calc(100vw - 32px));
+  }
+
+  .blueprint-stage .bp-tooltip.is-visible {
+    position: fixed;
+    z-index: 200;
+    transform: none !important;
+  }
+
+  .theme-obsidian .page-layout .main-col {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .theme-obsidian .main-col > .content-section,
+  .theme-obsidian .main-col > .gallery-section,
+  .theme-obsidian .main-col > .features-marquee-section,
+  .theme-obsidian .main-col > .yacht-blueprint-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .theme-obsidian .main-col > .destinations-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .theme-obsidian .gallery-modal-header-center {
+    padding: 0 40px 0 2px;
+  }
+
+  .theme-obsidian .gallery-modal-header-center p {
+    font-size: 10px;
+  }
+
+  .brand-logo--modal {
+    height: 28px;
+  }
+
+  .brand-logo--hero {
+    height: clamp(44px, 14vw, 72px);
+  }
+
+  .enquire-card h2 {
+    font-size: 24px;
+  }
+
+  .booking-card h2 {
+    font-size: 20px;
+  }
+}
