@@ -89,16 +89,16 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian .site-header {
-  background: rgba(250, 246, 240, 0.72);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--line);
+  background: #24566a;
+  backdrop-filter: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
 }
 
 .theme-obsidian .site-header.is-scrolled {
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom-color: rgba(var(--blue-rgb), 0.35);
-  box-shadow: 0 12px 40px rgba(var(--navy-rgb), 0.08);
+  background: #24566a;
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .theme-obsidian .logo {
@@ -125,11 +125,26 @@ body.theme-obsidian::after {
 
 .theme-obsidian .header-nav a,
 .theme-obsidian .icon-btn {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.88);
 }
 
-.theme-obsidian .header-nav a {
-  transition: color 0.3s;
+.theme-obsidian .header-nav a:hover {
+  color: #fff;
+}
+
+.theme-obsidian .mobile-nav-toggle-bar {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.theme-obsidian .logo-color-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.theme-obsidian .logo-color-toggle:hover,
+.theme-obsidian .logo-color-toggle:focus-visible {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 .theme-obsidian .header-nav a:hover {

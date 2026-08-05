@@ -215,6 +215,11 @@ body.logo-color-white .theme-obsidian .sidebar-link {
   height: clamp(26px, 3.2vw, 38px);
 }
 
+.brand-logo--header-icon {
+  height: clamp(32px, 4vw, 42px);
+  width: auto;
+}
+
 .brand-logo--hero {
   height: clamp(56px, 10vw, 120px);
 }

@@ -361,6 +361,16 @@ html.gallery-modal-open body {
     padding: 0 16px;
   }
 
+  .theme-obsidian .header-left .header-nav {
+    background: #24566a;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .theme-obsidian .header-left .header-nav a {
+    color: rgba(255, 255, 255, 0.88);
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+
   .header-left .header-nav {
     display: flex !important;
     position: fixed;
@@ -425,11 +435,11 @@ html.gallery-modal-open body {
   }
 
   .theme-obsidian .obsidian-hero-content {
-    padding: 24px 16px 8px;
+    padding: clamp(22px, 4vh, 48px) 16px 8px;
   }
 
   .theme-obsidian .hero-nav-sticky-host {
-    margin-top: -40px;
+    margin-top: -56px;
   }
 
   .theme-obsidian .hero-section-nav {
@@ -438,11 +448,11 @@ html.gallery-modal-open body {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 12px 16px;
+    padding: 18px 16px;
   }
 
   .theme-obsidian .hero-section-nav.is-fixed {
-    padding: 12px 16px;
+    padding: 18px 16px;
   }
 
   .theme-obsidian .hero-section-nav::-webkit-scrollbar {
@@ -453,7 +463,8 @@ html.gallery-modal-open body {
     flex: 0 0 auto;
     white-space: nowrap;
     padding: 6px 14px;
-    font-size: 10px;
+    font-size: 12px;
+    font-weight: 700;
   }
 
   .theme-obsidian .hero-specs-bar {
@@ -676,7 +687,7 @@ html.gallery-modal-open body {
   }
 
   .brand-logo--hero {
-    height: clamp(44px, 14vw, 72px);
+    height: clamp(40px, 11vw, 64px);
   }
 
   .enquire-card h2 {
