@@ -36,7 +36,7 @@
 .theme-obsidian .hero-nav-sticky-host {
   position: relative;
   z-index: 90;
-  margin-top: -68px;
+  margin-top: -88px;
 }
 
 .theme-obsidian .hero-section-nav.is-fixed {
@@ -514,14 +514,15 @@
 }
 
 .theme-obsidian .dest-grid {
-  grid-template-columns: 1.35fr 0.65fr;
+  grid-template-columns: 1fr 1fr;
   gap: 14px;
-  max-width: calc(100% - 220px);
+  max-width: 100%;
 }
 
 .theme-obsidian .dest-card {
   border-radius: 18px;
-  min-height: 320px;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
 }
 
 /* Gallery — vertical film + ken burns */
@@ -575,7 +576,7 @@
   }
 
   .theme-obsidian .hero-nav-sticky-host {
-    margin-top: -48px;
+    margin-top: -68px;
   }
 
   .theme-obsidian .hero-section-nav {

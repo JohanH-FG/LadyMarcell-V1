@@ -18,26 +18,17 @@
 <body class="booking-page theme-obsidian">
   <header class="site-header">
     <div class="header-inner">
-      <div class="header-left">
-        <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="site-mobile-nav" aria-label="Open menu">
-          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
-          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
-          <span class="mobile-nav-toggle-bar" aria-hidden="true"></span>
-        </button>
-        <nav class="header-nav" id="site-mobile-nav" aria-label="Primary">
-          <a href="index.html">Home</a>
-          <a href="booking.html">Book a Trip</a>
-        </nav>
-      </div>
+      <nav class="header-nav header-nav--start" aria-label="Primary">
+        <a href="index.html">Home</a>
+      </nav>
+
       <a href="index.html" class="logo" aria-label="Lady Marcelle home">
         <img src="images/logos/lm-icon-white.png" alt="" class="brand-logo brand-logo--header brand-logo--header-icon" data-brand-logo="icon" width="48" height="48" />
       </a>
 
-      <div class="header-right">
-        <button type="button" class="logo-color-toggle" aria-label="Switch logo color">
-          <span class="logo-color-toggle-swatch" aria-hidden="true"></span>
-        </button>
-      </div>
+      <nav class="header-nav header-nav--end" aria-label="Primary">
+        <a href="booking.html">Enquire</a>
+      </nav>
     </div>
   </header>
 
@@ -51,7 +42,7 @@
     </nav>
     <h1 class="brand-logo-heading brand-logo-heading--center">
       <span>Book</span>
-      <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
+      <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
     </h1>
     <p>Complete the form below and our Charter Consultants will confirm availability and prepare a proposal for your charter aboard LADY MARCELLE.</p>
   </section>
@@ -201,11 +192,11 @@
     <div class="footer-grid footer-grid--simple">
       <div>
         <h3>
-          <img src="images/logos/lm-full-gold.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+          <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
         </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
-          <li><a href="booking.html">Book a Trip</a></li>
+          <li><a href="booking.html">Enquire</a></li>
           <li><a href="index.html#enquire">Enquire</a></li>
           <li><a href="lady-marcelle_brochure.pdf" download>Brochure</a></li>
         </ul>
@@ -237,7 +228,6 @@
     </div>
   </footer>
 
-  <script src="js/logo-theme.js"></script>
   <script src="js/api.js"></script>
   <script src="js/charter-selection.js"></script>
   <script src="js/booking.js"></script>

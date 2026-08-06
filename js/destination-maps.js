@@ -119,12 +119,12 @@ function buildInfoContent(dest) {
   const tags = (dest.highlights || [])
     .map(
       (item) =>
-        `<span style="display:inline-block;margin:0 6px 6px 0;padding:4px 10px;border-radius:999px;background:#dff0f4;color:#24566a;font-size:11px;font-weight:600;letter-spacing:0.02em;">${escapeHtml(item)}</span>`
+        `<span style="display:inline-block;margin:0 6px 6px 0;padding:4px 10px;border-radius:999px;background:#dff0f4;color:#217799;font-size:11px;font-weight:600;letter-spacing:0.02em;">${escapeHtml(item)}</span>`
     )
     .join("");
 
   return `
-    <div style="max-width:260px;padding:2px 2px 4px;font-family:Outfit,system-ui,sans-serif;color:#24566a;">
+    <div style="max-width:260px;padding:2px 2px 4px;font-family:Outfit,system-ui,sans-serif;color:#217799;">
       <h3 style="margin:0 0 8px;font-family:'Cormorant Infant',Georgia,serif;font-size:20px;font-weight:500;font-style:italic;line-height:1.2;color:#1a4252;">${escapeHtml(dest.name)}</h3>
       <p style="margin:0 0 10px;font-size:13px;line-height:1.55;color:#6a8a96;">${escapeHtml(dest.summary)}</p>
       <div style="display:flex;flex-wrap:wrap;">${tags}</div>

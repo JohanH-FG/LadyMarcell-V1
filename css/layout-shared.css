@@ -148,6 +148,7 @@
   text-transform: uppercase;
   opacity: 0.85;
   margin-bottom: 6px;
+  color: #fff;
 }
 
 .booking-rate-overlay h2 {
@@ -155,6 +156,12 @@
   font-size: 28px;
   font-weight: 500;
   line-height: 1.15;
+  color: #fff;
+}
+
+.theme-obsidian .booking-rate-overlay .eyebrow,
+.theme-obsidian .booking-rate-overlay h2 {
+  color: #fff;
 }
 
 .booking-rate-body {
@@ -354,8 +361,9 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0 0 auto;
   padding: 18px 20px 22px;
+  background: var(--foam, #fff);
 }
 
 .toy-card::after {
@@ -374,56 +382,24 @@
   grid-column: span 8;
   grid-row: span 2;
   min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: transparent;
-  border: 1px solid var(--line);
-  color: inherit;
 }
 
 .toy-card--feature .toy-card-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.toy-card--feature::before {
-  display: none;
-}
-
-.toy-card--feature::after {
-  display: none;
+  flex: 1 1 auto;
+  min-height: 168px;
+  height: auto;
 }
 
 .toy-card--feature .toy-card-copy {
-  position: relative;
-  z-index: 2;
   flex: 0 0 auto;
-  padding: 28px 24px;
-  justify-content: flex-end;
-  background: transparent;
-}
-
-.toy-card--feature .toy-tag {
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--muted);
-  border-color: var(--line);
 }
 
 .toy-card--feature h3 {
-  color: #fff;
-  font-size: clamp(26px, 3vw, 36px);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  font-size: clamp(22px, 2.4vw, 28px);
 }
 
 .toy-card--feature p {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
-  max-width: 36ch;
+  max-width: none;
 }
 
 .toy-tag {
@@ -464,7 +440,9 @@
 }
 
 .toy-card--feature:hover {
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  border-color: color-mix(in srgb, var(--blue) 40%, var(--line));
 }
 
 .toys-grid .toy-extra {
@@ -540,23 +518,6 @@
 
 .theme-obsidian .toy-card h3 {
   color: var(--deep);
-}
-
-.theme-obsidian .toy-card--feature h3 {
-  color: #fff;
-}
-
-.theme-obsidian .toy-card--feature p {
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.theme-obsidian .toy-card--feature {
-  background: transparent;
-  box-shadow: none;
-}
-
-.theme-obsidian .toy-card--feature:has(.toy-card-photo) {
-  background: transparent;
 }
 
 .theme-obsidian .toys-toggle {

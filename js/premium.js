@@ -169,12 +169,41 @@
 
     const headerH =
       parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h"), 10) || 64;
+    const mobileMq = window.matchMedia("(max-width: 768px)");
 
     const updateStickyOffset = (isFixed) => {
       const navHeight = nav.offsetHeight;
       const offset = headerH + (isFixed ? navHeight : 0);
       document.documentElement.style.setProperty("--section-nav-h", `${navHeight}px`);
       document.documentElement.style.setProperty("--sticky-top-offset", `${offset}px`);
+    };
+
+    const updateMobileNavScroll = () => {
+      if (!mobileMq.matches || reduced) {
+        nav.scrollLeft = 0;
+        return;
+      }
+
+      const maxScroll = Math.max(0, nav.scrollWidth - nav.clientWidth);
+      if (maxScroll === 0) {
+        nav.scrollLeft = 0;
+        return;
+      }
+
+      const hostTop = host.getBoundingClientRect().top;
+      const isFixed = hostTop <= headerH;
+
+      if (!isFixed) {
+        nav.scrollLeft = 0;
+        return;
+      }
+
+      const stickScrollY = window.scrollY + hostTop - headerH;
+      const start = Math.max(0, stickScrollY);
+      const end = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1, end - start)));
+
+      nav.scrollLeft = progress * maxScroll;
     };
 
     const updateFixed = () => {
@@ -185,6 +214,7 @@
       nav.classList.toggle("is-stuck", shouldFix);
       host.style.minHeight = shouldFix ? navHeight + "px" : "";
       updateStickyOffset(shouldFix);
+      updateMobileNavScroll();
     };
 
     const setActive = (id) => {
@@ -221,6 +251,10 @@
     const onScroll = () => updateFixed();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    mobileMq.addEventListener("change", () => {
+      nav.scrollLeft = 0;
+      updateFixed();
+    });
     updateFixed();
   }
 

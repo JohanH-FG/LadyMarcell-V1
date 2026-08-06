@@ -1,11 +1,11 @@
 /* Lady Marcelle — charter detail page */
 
 :root {
-  --navy: #24566a;
-  --navy-deep: #1a4252;
+  --navy: #217799;
+  --navy-deep: #1a6280;
   --blue: #4aa3b5;
   --blue-hover: #3b8fa0;
-  --text: #24566a;
+  --text: #217799;
   --muted: #6a8a96;
   --line: #d7e8ec;
   --bg: #faf6f0;
@@ -77,52 +77,11 @@ ul {
   padding: 0 28px;
 }
 
-.header-left,
-.header-right {
+.header-left {
   display: flex;
   align-items: center;
   gap: 20px;
-}
-
-.header-left {
   justify-self: start;
-}
-
-.header-right {
-  justify-content: flex-end;
-}
-
-.logo-color-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg);
-  cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.logo-color-toggle:hover,
-.logo-color-toggle:focus-visible {
-  border-color: rgba(var(--blue-rgb), 0.45);
-  box-shadow: 0 4px 14px rgba(var(--navy-rgb), 0.1);
-  outline: none;
-}
-
-.logo-color-toggle:active {
-  transform: scale(0.96);
-}
-
-.logo-color-toggle-swatch {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid rgba(var(--navy-rgb), 0.12);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 body.logo-color-white .site-header {
@@ -140,11 +99,6 @@ body.logo-color-white .site-header .header-nav a:hover {
 
 body.logo-color-white .mobile-nav-toggle-bar {
   background: rgba(255, 255, 255, 0.9);
-}
-
-body.logo-color-white .logo-color-toggle {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 body.logo-color-navy .brand-logo--hero,
@@ -177,6 +131,14 @@ body.logo-color-white .theme-obsidian .sidebar-link {
 .header-nav {
   display: flex;
   gap: 22px;
+}
+
+.header-nav--start {
+  justify-self: start;
+}
+
+.header-nav--end {
+  justify-self: end;
 }
 
 .header-nav a {
@@ -1526,10 +1488,6 @@ body.logo-color-white .theme-obsidian .sidebar-link {
 }
 
 @media (max-width: 768px) {
-  .header-nav {
-    display: none;
-  }
-
   .sub-header {
     flex-direction: column;
     align-items: flex-start;
