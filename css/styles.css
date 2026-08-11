@@ -645,8 +645,8 @@ body.logo-color-white .theme-obsidian .sidebar-link {
 
 .detail-row {
   display: grid;
-  grid-template-columns: minmax(140px, 200px) 1fr;
-  gap: 36px;
+  grid-template-columns: minmax(120px, 200px) minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 36px);
   align-items: start;
 }
 
@@ -659,7 +659,12 @@ body.logo-color-white .theme-obsidian .sidebar-link {
   line-height: 1.25;
 }
 
+.section-body {
+  min-width: 0;
+}
+
 .section-body p {
+  overflow-wrap: anywhere;
   font-size: 15px;
   line-height: 1.75;
   color: #4a4a4a;
@@ -1487,15 +1492,17 @@ body.logo-color-white .theme-obsidian .sidebar-link {
   }
 }
 
+@media (max-width: 980px) {
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .sub-header {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .detail-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 
   .dest-grid {

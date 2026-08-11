@@ -298,9 +298,11 @@
 }
 
 .theme-obsidian .page-layout .main-col {
-  padding-left: 120px;
-  padding-right: 120px;
+  padding-left: clamp(20px, 4vw, 120px);
+  padding-right: clamp(20px, 4vw, 120px);
   min-width: 0;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .theme-obsidian .page-layout .sidebar {

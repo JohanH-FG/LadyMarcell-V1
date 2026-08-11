@@ -258,6 +258,32 @@
     updateFixed();
   }
 
+  function initResponsiveLayout() {
+    const mainCol = document.querySelector(".theme-obsidian .page-layout .main-col");
+    const sidebarInner = document.querySelector(".theme-obsidian .page-layout .sidebar-inner");
+    if (!mainCol) return;
+
+    const update = () => {
+      const w = window.innerWidth;
+
+      if (w <= 980 || w > 1100 || !sidebarInner) {
+        document.documentElement.style.removeProperty("--main-col-padding-right");
+        mainCol.style.paddingRight = "";
+        return;
+      }
+
+      const sidebarW = sidebarInner.getBoundingClientRect().width || 280;
+      const gutter = Math.max(16, Math.min(32, Math.round(w * 0.02)));
+      const paddingRight = `${Math.ceil(sidebarW + gutter)}px`;
+      document.documentElement.style.setProperty("--main-col-padding-right", paddingRight);
+      mainCol.style.paddingRight = paddingRight;
+    };
+
+    update();
+    window.addEventListener("resize", update, { passive: true });
+    window.addEventListener("load", update);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     autoMark();
     initHeader();
@@ -266,6 +292,7 @@
     initReveals();
     initStickySidebar();
     initSectionNav();
+    initResponsiveLayout();
     initBlueprintHotspots();
   });
 

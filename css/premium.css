@@ -347,25 +347,29 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian #description {
-  background: var(--foam) !important;
+  --section-band: var(--foam);
+  background: transparent !important;
   padding-top: 48px !important;
   padding-bottom: 40px !important;
 }
 
 .theme-obsidian .specs-section {
-  background: var(--sky) !important;
+  --section-band: var(--sky);
+  background: transparent !important;
   padding-top: 56px !important;
   padding-bottom: 48px !important;
 }
 
 .theme-obsidian .toys-section {
-  background: var(--sand) !important;
+  --section-band: var(--sand);
+  background: transparent !important;
   padding-top: 56px !important;
   padding-bottom: 48px !important;
 }
 
 .theme-obsidian .gallery-section {
-  background: var(--sand-warm) !important;
+  --section-band: var(--sand-warm);
+  background: transparent !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-top: 56px !important;
@@ -373,7 +377,8 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian .features-marquee-section {
-  background: var(--sky) !important;
+  --section-band: var(--sky);
+  background: transparent !important;
   border-top: none !important;
   padding-top: 48px !important;
   padding-bottom: 48px !important;
@@ -390,14 +395,16 @@ body.theme-obsidian::after {
 }
 
 .theme-obsidian .destinations-section {
-  background: var(--foam) !important;
+  --section-band: var(--foam);
+  background: transparent !important;
   padding-top: 56px !important;
   padding-bottom: 56px !important;
   padding-right: 80px !important;
 }
 
 .theme-obsidian .enquire-section {
-  background: var(--sand-warm);
+  --section-band: var(--sand-warm);
+  background: transparent;
 }
 
 .theme-obsidian .enquire-card h2.brand-logo-heading {
