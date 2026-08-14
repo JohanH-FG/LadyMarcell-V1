@@ -76,8 +76,6 @@ body.theme-obsidian::after {
 .theme-obsidian .sub-header,
 .theme-obsidian .title-bar,
 .theme-obsidian .page-layout,
-.theme-obsidian .enquire-section,
-.theme-obsidian .site-footer,
 .theme-obsidian .booking-page,
 .theme-obsidian .croatia-page {
   position: relative;
@@ -563,6 +561,14 @@ body.theme-obsidian::after {
   color: var(--foam) !important;
 }
 
+.theme-obsidian .croatia-hero-copy h1 {
+  color: #fff !important;
+}
+
+.theme-obsidian .croatia-hero-copy p {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
 .theme-obsidian .site-footer {
   background: var(--deep);
   border-top: none;
@@ -570,12 +576,16 @@ body.theme-obsidian::after {
   color: #fff;
 }
 
-.theme-obsidian .site-footer a {
-  color: rgba(255, 255, 255, 0.65);
+.theme-obsidian .site-footer .footer-grid h3 {
+  color: #fff;
 }
 
-.theme-obsidian .site-footer a:hover {
-  color: var(--aqua);
+.theme-obsidian .site-footer .footer-grid--simple a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.theme-obsidian .site-footer .footer-grid--simple a:hover {
+  color: #fff;
 }
 
 .theme-obsidian .site-footer .ghost-btn {
@@ -590,7 +600,11 @@ body.theme-obsidian::after {
 
 .theme-obsidian .site-footer .footer-bottom,
 .theme-obsidian .site-footer .footer-newsletter p {
-  color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+}
+
+.theme-obsidian .site-footer .footer-bottom p {
+  color: #fff;
 }
 
 .theme-obsidian .selection-editor {

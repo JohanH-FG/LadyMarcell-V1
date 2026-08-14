@@ -344,8 +344,10 @@
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   scrollbar-width: none;
   padding: 4px 2px 16px;
+  min-width: 0;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -365,9 +367,14 @@
   flex-shrink: 0;
 }
 
-.carousel-nav:hover {
+.carousel-nav:hover:not(:disabled) {
   border-color: var(--blue);
   color: var(--blue);
+}
+
+.carousel-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .yacht-card {

@@ -13,14 +13,56 @@ function initCarousels() {
     const next = root.querySelector("[data-carousel-next]");
     if (!track) return;
 
-    const scrollBy = () => Math.min(track.clientWidth * 0.85, 380);
+    const cards = () => [...track.children];
+
+    const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+    const stepSize = () => {
+      const first = cards()[0];
+      if (!first) return 380;
+      const gap = parseFloat(getComputedStyle(track).gap) || 20;
+      return first.getBoundingClientRect().width + gap;
+    };
+
+    const scrollTolerance = () => Math.max(4, stepSize() * 0.05);
+
+    const updateButtons = () => {
+      const tolerance = scrollTolerance();
+      const scroll = track.scrollLeft;
+      const max = maxScroll();
+
+      if (prev) prev.disabled = scroll <= tolerance;
+      if (next) next.disabled = scroll >= max - tolerance;
+    };
 
     prev?.addEventListener("click", () => {
-      track.scrollBy({ left: -scrollBy(), behavior: "smooth" });
+      const step = stepSize();
+      const tolerance = scrollTolerance();
+
+      if (track.scrollLeft <= tolerance) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
+      track.scrollBy({ left: -step, behavior: "smooth" });
     });
+
     next?.addEventListener("click", () => {
-      track.scrollBy({ left: scrollBy(), behavior: "smooth" });
+      const step = stepSize();
+      const max = maxScroll();
+      const remaining = max - track.scrollLeft;
+
+      if (remaining <= step * 0.5) {
+        track.scrollTo({ left: max, behavior: "smooth" });
+        return;
+      }
+
+      track.scrollBy({ left: step, behavior: "smooth" });
     });
+
+    track.addEventListener("scroll", updateButtons, { passive: true });
+    window.addEventListener("resize", updateButtons);
+    updateButtons();
   });
 }
 

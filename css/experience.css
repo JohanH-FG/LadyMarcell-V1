@@ -308,6 +308,7 @@
 .theme-obsidian .page-layout .sidebar {
   display: block !important;
   position: relative;
+  align-self: stretch;
   background: #f9fafb;
   border-left: 1px solid var(--line);
   padding: 0;
@@ -320,10 +321,10 @@
 
 .theme-obsidian .page-layout .sidebar-inner {
   position: fixed;
-  top: var(--sticky-top-offset, var(--header-h, 64px));
+  top: calc(var(--header-h, 64px) + var(--section-nav-h, 56px));
   right: 0;
   width: 280px;
-  height: calc(100vh - var(--sticky-top-offset, var(--header-h, 64px)));
+  height: calc(100vh - var(--header-h, 64px) - var(--section-nav-h, 56px));
   overflow-y: auto;
   scrollbar-width: thin;
   background: #f9fafb;
@@ -335,7 +336,6 @@
   z-index: 55;
   transform: translateX(0);
   pointer-events: auto;
-  transition: top 0.35s ease, height 0.35s ease;
 }
 
 .theme-obsidian .page-layout .sidebar-inner.is-behind-hero {

@@ -137,12 +137,9 @@
 
       const headerH =
         parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h"), 10) || 64;
-      const stickyTop =
-        parseInt(getComputedStyle(document.documentElement).getPropertyValue("--sticky-top-offset"), 10) ||
-        headerH;
 
       const bandRect = heroBand?.getBoundingClientRect();
-      const pastHero = !bandRect || bandRect.bottom <= stickyTop;
+      const pastHero = !bandRect || bandRect.bottom <= headerH;
       sidebar.classList.toggle("is-behind-hero", !pastHero);
     };
 

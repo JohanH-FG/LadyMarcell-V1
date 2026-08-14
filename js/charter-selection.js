@@ -5,10 +5,7 @@ const CHARTER_STORAGE_KEY = "ladyMarcelleCharterSelection";
 const CHARTER_DESTINATIONS = [
   "Croatia",
   "Montenegro",
-  "Greece",
-  "Italy",
-  "France",
-  "Other",
+  "Slovenia",
 ];
 
 function getCharterSelection() {

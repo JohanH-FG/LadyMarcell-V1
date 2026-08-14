@@ -71,7 +71,10 @@
   function applyTheme(color) {
     if (!COLORS.includes(color)) color = "gold";
     setBodyColorClass(color);
-    document.querySelectorAll("[data-brand-logo]").forEach((el) => updateLogoImage(el, color));
+    document.querySelectorAll("[data-brand-logo]").forEach((el) => {
+      if (el.classList.contains("brand-logo--modal")) return;
+      updateLogoImage(el, color);
+    });
     updateToggle(color);
     localStorage.setItem(STORAGE_KEY, color);
   }

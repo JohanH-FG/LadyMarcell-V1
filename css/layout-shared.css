@@ -808,9 +808,43 @@
 
 /* Simple relevant footer */
 .footer-grid--simple {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 36px 48px;
-  max-width: 960px;
+  grid-template-columns: auto auto;
+  gap: 40px 72px;
+  max-width: none;
+  width: fit-content;
+  margin: 0 0 36px;
+  justify-content: start;
+}
+
+.footer-grid--simple h3 {
+  margin: 0 0 18px;
+  min-height: 40px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.footer-grid--simple .brand-logo--footer {
+  height: 40px;
+  width: auto;
+}
+
+.footer-grid--simple ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-grid--simple li {
+  margin-bottom: 12px;
+}
+
+.footer-grid--simple li:last-child {
+  margin-bottom: 0;
+}
+
+.footer-grid--simple a {
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .footer-grid--simple .footer-contact-actions {
@@ -823,6 +857,7 @@
 @media (max-width: 720px) {
   .footer-grid--simple {
     grid-template-columns: 1fr;
+    width: 100%;
   }
 }
 
@@ -833,12 +868,24 @@
 .theme-obsidian .main-col > .features-marquee-section,
 .theme-obsidian .main-col > .yacht-blueprint-section,
 .theme-obsidian .main-col > #description,
-.theme-obsidian .main-col > .destinations-section,
-.theme-obsidian .enquire-section {
+.theme-obsidian .main-col > .destinations-section {
   position: relative;
   isolation: isolate;
   z-index: 0;
   overflow: visible;
+}
+
+/* Above fixed sidebar (z-index 55) when scrolling into enquire */
+.theme-obsidian .enquire-section {
+  position: relative;
+  isolation: isolate;
+  z-index: 60;
+  overflow: visible;
+}
+
+.theme-obsidian .site-footer {
+  position: relative;
+  z-index: 60;
 }
 
 .theme-obsidian .main-col > .content-section.specs-section::before,
