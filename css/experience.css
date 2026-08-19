@@ -177,6 +177,50 @@
   display: block;
 }
 
+/* Hero video — hold below-fold content until video can play */
+body.hero-video-loading .obsidian-hero {
+  background: var(--navy-deep);
+}
+
+body.hero-video-loading .hero-bottom-band,
+body.hero-video-loading .page-layout,
+body.hero-video-loading .enquire-section,
+body.hero-video-loading .site-footer {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.is-page-ready .hero-bottom-band,
+body.is-page-ready .page-layout,
+body.is-page-ready .enquire-section,
+body.is-page-ready .site-footer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.55s ease,
+    visibility 0.55s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hero-video-loading .hero-bottom-band,
+  body.hero-video-loading .page-layout,
+  body.hero-video-loading .enquire-section,
+  body.hero-video-loading .site-footer {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.is-page-ready .hero-bottom-band,
+  body.is-page-ready .page-layout,
+  body.is-page-ready .enquire-section,
+  body.is-page-ready .site-footer {
+    transition: none;
+  }
+}
+
 .theme-obsidian .obsidian-hero .hero::after {
   display: none;
 }
