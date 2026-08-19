@@ -10,7 +10,7 @@ Static front-end (HTML, CSS, JavaScript) with a small Node/Express backend for e
 | Styles | `css/styles.css`, `premium.css`, `experience.css`, `layout-shared.css`, `mobile.css` |
 | Scripts | `js/main.js`, `premium.js`, `gallery-pro.js`, `charter-selection.js`, etc. |
 | Server | Node 18+ / Express (`server.js`) |
-| Email | Resend API or SMTP (via environment variables) |
+| Email | SMTP via nodemailer (environment variables) |
 
 ## Local development
 
@@ -31,10 +31,11 @@ Copy `.env.example` to `.env`:
 | Variable | Purpose |
 |----------|---------|
 | `PORT` | Server port (default `3000`) |
-| `MAIL_TO` / `ENQUIRY_TO_EMAIL` | Recipient for form submissions |
-| `RESEND_API_KEY` | Resend API key (recommended) |
-| `RESEND_FROM` | Verified sender address in Resend |
-| `SMTP_*` | Alternative SMTP settings (e.g. Office 365) |
+| `MAIL_TO` / `ENQUIRY_TO_EMAIL` | **Required** — recipient for form submissions (at least one) |
+| `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` | **Required** — SMTP credentials |
+| `SMTP_FROM` | From address for SMTP (falls back to `SMTP_USER`) |
+| `SMTP_PORT`, `SMTP_SECURE` | Optional SMTP settings (defaults: `587`, `false`) |
+| `CONTACT_EMAIL` | Optional — for public mailto links (currently set manually in HTML) |
 
 ---
 
@@ -42,7 +43,7 @@ Copy `.env.example` to `.env`:
 
 1. **`Dockerfile`** — Node 18+, `npm install`, `CMD ["node", "server.js"]`
 2. **Push image to ECR** (AWS container registry)
-3. **Run the container** with env vars from `.env.example` (`RESEND_API_KEY`, `MAIL_TO`, etc.)
+3. **Run the container** with env vars from `.env.example` (`MAIL_TO`, `SMTP_*`, etc.)
 4. **Custom domain + HTTPS** via Route 53 + ACM certificate
 
 HTML, CSS, JS, images, and the hero video stay unchanged.
@@ -93,11 +94,11 @@ Steps:
 | Topic | Note |
 |--------|------|
 | **Port** | Container must listen on `PORT` (default `3000`). App Runner / ECS map that to 443 externally. |
-| **Secrets** | Put `RESEND_API_KEY` and SMTP credentials in AWS Secrets Manager or SSM — not baked into the image. |
+| **Secrets** | Put SMTP credentials in AWS Secrets Manager or SSM — not baked into the image. |
 | **Health check** | Add a `/health` route in `server.js` (or use `/`) so AWS knows the container is alive. |
 | **Video size** | Hero MP4 increases image size; consider S3 + CloudFront later, but not required to start. |
 | **CORS** | Production uses same origin (`getApiBase()` returns `""`), so no CORS issues once the domain matches. |
-| **Email** | Resend/SMTP must work from AWS outbound network. Verify `RESEND_FROM` uses a verified domain. |
+| **Email** | SMTP must be reachable from AWS outbound network. Office 365 may require SMTP AUTH enabled by IT. |
 
 ### Rough cost (low traffic)
 

@@ -6,10 +6,16 @@ const nodemailer = require("nodemailer");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MAIL_TO =
-  process.env.MAIL_TO ||
-  process.env.ENQUIRY_TO_EMAIL ||
-  "hattinghj@feenstragroup.co.za";
+
+function getMailTo() {
+  const to = (process.env.MAIL_TO || process.env.ENQUIRY_TO_EMAIL || "").trim();
+  if (!to) {
+    const error = new Error("MAIL_TO or ENQUIRY_TO_EMAIL is not configured.");
+    error.status = 503;
+    throw error;
+  }
+  return to;
+}
 
 app.use(express.json({ limit: "32kb" }));
 
@@ -28,10 +34,12 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname)));
 
-function getEmailProvider() {
-  if (process.env.RESEND_API_KEY) return "resend";
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) return "smtp";
-  return null;
+function isEmailConfigured() {
+  return Boolean(
+    process.env.SMTP_HOST &&
+      process.env.SMTP_USER &&
+      process.env.SMTP_PASS
+  );
 }
 
 function createTransporter() {
@@ -133,35 +141,6 @@ function buildEmailContent({ heading, fields }) {
   return { text, html };
 }
 
-async function sendViaResend({ subject, heading, fields, replyTo }) {
-  const { text, html } = buildEmailContent({ heading, fields });
-  const from =
-    process.env.RESEND_FROM || "Lady Marcelle Website <onboarding@resend.dev>";
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [MAIL_TO],
-      reply_to: replyTo,
-      subject,
-      text,
-      html,
-    }),
-  });
-
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    const error = new Error(data.message || "Resend API request failed.");
-    error.status = 500;
-    throw error;
-  }
-}
-
 async function sendViaSmtp({ subject, heading, fields, replyTo }) {
   const transporter = createTransporter();
   if (!transporter) {
@@ -171,10 +150,16 @@ async function sendViaSmtp({ subject, heading, fields, replyTo }) {
   }
 
   const { text, html } = buildEmailContent({ heading, fields });
+  const from = (process.env.SMTP_FROM || process.env.SMTP_USER || "").trim();
+  if (!from) {
+    const error = new Error("SMTP_FROM or SMTP_USER is not configured.");
+    error.status = 503;
+    throw error;
+  }
 
   await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: MAIL_TO,
+    from,
+    to: getMailTo(),
     replyTo,
     subject,
     text,
@@ -183,15 +168,10 @@ async function sendViaSmtp({ subject, heading, fields, replyTo }) {
 }
 
 async function sendFormEmail(payload) {
-  const provider = getEmailProvider();
-  if (!provider) {
+  if (!isEmailConfigured()) {
     const error = new Error("Email is not configured on the server.");
     error.status = 503;
     throw error;
-  }
-
-  if (provider === "resend") {
-    return sendViaResend(payload);
   }
 
   return sendViaSmtp(payload);
@@ -199,7 +179,7 @@ async function sendFormEmail(payload) {
 
 function handleEmailError(res, err, fallbackMessage) {
   if (err.status === 503) {
-    console.error("Email failed: SMTP is not configured.");
+    console.error("Email failed:", err.message);
     return res.status(503).json({
       error: "Email is not configured on the server. Please contact us directly.",
     });
@@ -208,7 +188,7 @@ function handleEmailError(res, err, fallbackMessage) {
   console.error("Email failed:", err.message || err);
   if (err.code === "EAUTH" && String(err.response || "").includes("SmtpClientAuthentication is disabled")) {
     console.error(
-      "Office 365 SMTP is disabled for this tenant. Ask IT to enable SMTP AUTH, or set RESEND_API_KEY in .env instead."
+      "Office 365 SMTP is disabled for this tenant. Ask IT to enable SMTP AUTH."
     );
   }
   return res.status(500).json({ error: fallbackMessage });
@@ -291,14 +271,22 @@ app.post("/api/booking", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  const provider = getEmailProvider();
+  const mailTo = (process.env.MAIL_TO || process.env.ENQUIRY_TO_EMAIL || "").trim();
+
   console.log(`Lady Marcelle site running at http://localhost:${PORT}`);
-  console.log(`Form emails will be sent to ${MAIL_TO}`);
-  if (provider === "resend") {
-    console.log("Email provider: Resend API");
-  } else if (provider === "smtp") {
-    console.log("Email provider: SMTP");
+
+  if (!mailTo) {
+    console.warn("Warning: MAIL_TO / ENQUIRY_TO_EMAIL not set. Form emails cannot be delivered.");
   } else {
-    console.warn("Warning: No email provider configured. Add RESEND_API_KEY or SMTP settings to .env");
+    console.log(`Form emails will be sent to ${mailTo}`);
+  }
+
+  if (isEmailConfigured()) {
+    console.log("Email provider: SMTP");
+    if (!(process.env.SMTP_FROM || process.env.SMTP_USER || "").trim()) {
+      console.warn("Warning: SMTP_FROM / SMTP_USER not set. Form emails will fail until configured.");
+    }
+  } else {
+    console.warn("Warning: SMTP is not configured. Add SMTP_HOST, SMTP_USER, and SMTP_PASS to .env");
   }
 });
