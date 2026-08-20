@@ -111,6 +111,12 @@ Steps:
 
 For a yacht charter brochure site, **App Runner** or **Lightsail** is usually enough unless you need ECS for other reasons.
 
+### Deploy to EC2 (PuTTY + domain + HTTPS)
+
+Step-by-step guide for Windows, PEM/PPK, Docker, nginx, and Let’s Encrypt:
+
+**[DEPLOY-EC2.md](./DEPLOY-EC2.md)**
+
 ### Dockerfile
 
 Build and run locally:

@@ -8,13 +8,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 function getMailTo() {
-  const to = (process.env.MAIL_TO || process.env.ENQUIRY_TO_EMAIL || "").trim();
+  const to = (
+    process.env.MAIL_TO ||
+    process.env.BOOKING_TO_EMAIL ||
+    process.env.ENQUIRY_TO_EMAIL ||
+    process.env.MAIL_BOOKING_TO ||
+    ""
+  ).trim();
   if (!to) {
-    const error = new Error("MAIL_TO or ENQUIRY_TO_EMAIL is not configured.");
+    const error = new Error("MAIL_TO is not configured.");
     error.status = 503;
     throw error;
   }
   return to;
+}
+
+function getMailFrom() {
+  return (
+    process.env.SMTP_FROM ||
+    process.env.SMTP_USER ||
+    "Lady Marcelle Website <enquiries@ladymarcelle.co.za>"
+  ).trim();
 }
 
 app.use(express.json({ limit: "32kb" }));
@@ -42,6 +56,16 @@ function isEmailConfigured() {
   );
 }
 
+function smtpTlsOptions() {
+  const tls = {};
+  const servername = (process.env.SMTP_TLS_SERVERNAME || "").trim();
+  if (servername) tls.servername = servername;
+  if (process.env.SMTP_TLS_REJECT_UNAUTHORIZED === "false") {
+    tls.rejectUnauthorized = false;
+  }
+  return Object.keys(tls).length ? tls : undefined;
+}
+
 function createTransporter() {
   const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env;
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
@@ -56,6 +80,7 @@ function createTransporter() {
       user: SMTP_USER,
       pass: SMTP_PASS,
     },
+    tls: smtpTlsOptions(),
   });
 }
 
@@ -141,7 +166,7 @@ function buildEmailContent({ heading, fields }) {
   return { text, html };
 }
 
-async function sendViaSmtp({ subject, heading, fields, replyTo }) {
+async function sendViaSmtp({ subject, heading, fields, replyTo, to }) {
   const transporter = createTransporter();
   if (!transporter) {
     const error = new Error("Email is not configured on the server.");
@@ -150,16 +175,11 @@ async function sendViaSmtp({ subject, heading, fields, replyTo }) {
   }
 
   const { text, html } = buildEmailContent({ heading, fields });
-  const from = (process.env.SMTP_FROM || process.env.SMTP_USER || "").trim();
-  if (!from) {
-    const error = new Error("SMTP_FROM or SMTP_USER is not configured.");
-    error.status = 503;
-    throw error;
-  }
+  const from = getMailFrom();
 
   await transporter.sendMail({
     from,
-    to: getMailTo(),
+    to,
     replyTo,
     subject,
     text,
@@ -207,11 +227,13 @@ app.post("/api/enquire", async (req, res) => {
       subject: `Lady Marcelle charter enquiry — ${contact.fullName}`,
       heading: "New charter enquiry — Lady Marcelle",
       replyTo: contact.email,
+      to: getMailTo(),
       fields: [
         { label: "Name", value: contact.fullName },
         { label: "Email", value: contact.email },
         { label: "Phone", value: contact.fullPhone },
         { label: "Destination", value: contact.destination },
+        { label: "Guests", value: contact.guests },
         { label: "Preferred dates", value: contact.dateRange },
         { label: "Message", value: contact.message },
       ],
@@ -249,6 +271,7 @@ app.post("/api/booking", async (req, res) => {
       subject: `Lady Marcelle booking request — ${contact.fullName}`,
       heading: "New booking request — Lady Marcelle",
       replyTo: contact.email,
+      to: getMailTo(),
       fields: [
         { label: "Name", value: contact.fullName },
         { label: "Email", value: contact.email },
@@ -271,21 +294,27 @@ app.post("/api/booking", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  const mailTo = (process.env.MAIL_TO || process.env.ENQUIRY_TO_EMAIL || "").trim();
+  const mailTo = (
+    process.env.MAIL_TO ||
+    process.env.BOOKING_TO_EMAIL ||
+    process.env.ENQUIRY_TO_EMAIL ||
+    process.env.MAIL_BOOKING_TO ||
+    ""
+  ).trim();
+  const mailFrom = getMailFrom();
 
   console.log(`Lady Marcelle site running at http://localhost:${PORT}`);
 
   if (!mailTo) {
-    console.warn("Warning: MAIL_TO / ENQUIRY_TO_EMAIL not set. Form emails cannot be delivered.");
+    console.warn("Warning: MAIL_TO is not set. Form emails cannot be delivered.");
   } else {
     console.log(`Form emails will be sent to ${mailTo}`);
   }
 
+  console.log(`Form emails will be sent from ${mailFrom}`);
+
   if (isEmailConfigured()) {
     console.log("Email provider: SMTP");
-    if (!(process.env.SMTP_FROM || process.env.SMTP_USER || "").trim()) {
-      console.warn("Warning: SMTP_FROM / SMTP_USER not set. Form emails will fail until configured.");
-    }
   } else {
     console.warn("Warning: SMTP is not configured. Add SMTP_HOST, SMTP_USER, and SMTP_PASS to .env");
   }

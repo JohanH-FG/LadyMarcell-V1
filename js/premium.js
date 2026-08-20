@@ -124,28 +124,6 @@
     sidebarWrap.classList.add("is-revealed");
     sidebar.classList.add("is-revealed");
 
-    if (reduced) return;
-
-    const mqSidebar = window.matchMedia("(max-width: 768px)");
-    const heroBand = document.querySelector(".theme-obsidian .hero-bottom-band");
-
-    const update = () => {
-      if (mqSidebar.matches) {
-        sidebar.classList.remove("is-behind-hero");
-        return;
-      }
-
-      const headerH =
-        parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h"), 10) || 64;
-
-      const bandRect = heroBand?.getBoundingClientRect();
-      const pastHero = !bandRect || bandRect.bottom <= headerH;
-      sidebar.classList.toggle("is-behind-hero", !pastHero);
-    };
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
   }
 
   function initSectionNav() {
@@ -283,26 +261,23 @@
 
   function initHeroVideoReveal(onReady) {
     const video = document.getElementById("hero-main-video");
-    if (!video) {
+    const body = document.body;
+
+    body.classList.remove("hero-video-loading");
+    body.classList.add("is-page-ready");
+
+    // Vimeo iframe — show page immediately; video loads in the background
+    if (!video || video instanceof HTMLIFrameElement || reduced) {
       onReady();
       return;
     }
 
-    const body = document.body;
     let done = false;
-
     const reveal = () => {
       if (done) return;
       done = true;
-      body.classList.remove("hero-video-loading");
-      body.classList.add("is-page-ready");
       onReady();
     };
-
-    if (reduced) {
-      reveal();
-      return;
-    }
 
     if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
       reveal();
@@ -311,7 +286,7 @@
 
     video.addEventListener("canplaythrough", reveal, { once: true });
     video.addEventListener("error", reveal, { once: true });
-    window.setTimeout(reveal, 8000);
+    window.setTimeout(reveal, 3000);
   }
 
   document.addEventListener("DOMContentLoaded", () => {

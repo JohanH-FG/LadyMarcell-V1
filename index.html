@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/layout-shared.css" />
   <link rel="stylesheet" href="css/mobile.css" />
 </head>
-<body class="theme-obsidian hero-video-loading">
+<body class="theme-obsidian">
   <!-- Header -->
   <header class="site-header">
     <div class="header-inner">
@@ -55,18 +55,16 @@
 
   <section class="obsidian-hero">
     <section class="hero" id="gallery-trigger">
-      <video
-        class="hero-img hero-video"
-        id="hero-main-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        aria-label="Lady Marcelle motor yacht cruising in blue water"
-      >
-        <source src="videos/lady-marcelle-hero.mp4" type="video/mp4" />
-      </video>
+      <div class="hero-vimeo-wrap hero-img">
+        <iframe
+          class="hero-vimeo-iframe"
+          id="hero-main-video"
+          src="https://player.vimeo.com/video/1219790758?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
+          title="Lady Marcelle motor yacht cruising in blue water"
+          allow="autoplay; fullscreen; picture-in-picture"
+          loading="eager"
+        ></iframe>
+      </div>
     </section>
     <div class="obsidian-hero-content">
       <div class="hero-intro">
@@ -479,6 +477,20 @@
               <option value="Croatia">Croatia</option>
               <option value="Montenegro">Montenegro</option>
               <option value="Slovenia">Slovenia</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="enquire-guests">Guests</label>
+            <select id="enquire-guests" name="guests">
+              <option value="" selected disabled>Select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
             </select>
           </div>
         </div>
