@@ -1,0 +1,195 @@
+Lady Marcelle — Production Deploy Reference
+===========================================
+Last updated: 2026-09-07
+
+Use this file when redeploying the site (human or AI agent).
+Do NOT commit secrets. The server `.env` already holds SMTP credentials.
+
+----------------------------------------------------------------------
+1. WHAT IS LIVE
+----------------------------------------------------------------------
+Live site:     https://ladymarcelle.co.za
+Also:          https://www.ladymarcelle.co.za
+EC2 public IP: 15.252.165.172
+SSH user:      ec2-user
+Remote path:   /home/ec2-user/LadyMarcell-V1
+Container:     lady-marcelle (Docker)
+App listen:    127.0.0.1:3000 inside host (NOT publicly exposed)
+Public HTTP(S): nginx on 80/443 → proxies to 127.0.0.1:3000
+SSL:           Let's Encrypt for ladymarcelle.co.za
+Nginx config:  /etc/nginx/conf.d/ladymarcelle.conf
+               (source copy in repo: deploy/nginx-ladymarcelle.conf)
+
+Stack:
+- Static HTML/CSS/JS front end
+- Node/Express (server.js) for /api/enquire and /api/booking
+- Docker image built from repo Dockerfile (node:18-alpine)
+
+----------------------------------------------------------------------
+2. LOCAL PATHS (Windows)
+----------------------------------------------------------------------
+Project root:
+  C:\Users\JohanH\TestWebsite\Lady-Marcell-site\LadyMarcell-V1
+
+SSH / SCP private key (.ppk for PuTTY):
+  C:\Users\JohanH\Feenstra Group\Systems - Johan Hattingh\Desktop\LadyMarcell.ppk
+
+PuTTY tools (typical install):
+  C:\Program Files\PuTTY\pscp.exe
+  C:\Program Files\PuTTY\plink.exe
+
+----------------------------------------------------------------------
+3. STANDARD REDEPLOY (MOST COMMON)
+----------------------------------------------------------------------
+When HTML/CSS/JS/server files change:
+
+A) Upload changed files from a Windows PowerShell session
+B) Rebuild and recreate the Docker container on EC2
+
+PowerShell variables (reuse these):
+
+  $pscp   = "C:\Program Files\PuTTY\pscp.exe"
+  $plink  = "C:\Program Files\PuTTY\plink.exe"
+  $key    = "C:\Users\JohanH\Feenstra Group\Systems - Johan Hattingh\Desktop\LadyMarcell.ppk"
+  $remote = "ec2-user@15.252.165.172"
+  $root   = "C:\Users\JohanH\TestWebsite\Lady-Marcell-site\LadyMarcell-V1"
+
+Upload examples:
+
+  # HTML pages
+  & $pscp -i $key "$root\index.html" "$root\booking.html" "$root\croatia.html" "$root\montenegro.html" "${remote}:/home/ec2-user/LadyMarcell-V1/"
+
+  # JS folder files
+  & $pscp -i $key "$root\js\main.js" "$root\js\booking.js" "${remote}:/home/ec2-user/LadyMarcell-V1/js/"
+
+  # CSS folder files
+  & $pscp -i $key "$root\css\styles.css" "${remote}:/home/ec2-user/LadyMarcell-V1/css/"
+
+  # Entire folder (careful — overwrites remote files)
+  & $pscp -i $key -r "$root\js" "${remote}:/home/ec2-user/LadyMarcell-V1/"
+  & $pscp -i $key -r "$root\css" "${remote}:/home/ec2-user/LadyMarcell-V1/"
+
+Rebuild on server via plink (one command):
+
+  & $plink -i $key -batch $remote "cd ~/LadyMarcell-V1 && docker stop lady-marcelle && docker rm lady-marcelle && docker build -t lady-marcelle . && docker run -d --name lady-marcelle -p 127.0.0.1:3000:3000 --env-file .env --restart unless-stopped lady-marcelle && sleep 2 && docker ps --filter name=lady-marcelle && curl -sI http://127.0.0.1:3000/ | head -5"
+
+Or run the same Docker steps manually in PuTTY after SSH:
+
+  cd ~/LadyMarcell-V1
+  docker stop lady-marcelle
+  docker rm lady-marcelle
+  docker build -t lady-marcelle .
+  docker run -d --name lady-marcelle -p 127.0.0.1:3000:3000 --env-file .env --restart unless-stopped lady-marcelle
+
+IMPORTANT:
+- Bind port as 127.0.0.1:3000:3000 (localhost only). Nginx is the public front.
+- Always pass --env-file .env
+- Always use --restart unless-stopped
+- Do NOT delete or overwrite the server `.env` unless intentionally updating mail settings
+
+----------------------------------------------------------------------
+4. VERIFY AFTER DEPLOY
+----------------------------------------------------------------------
+On server:
+
+  docker ps
+  docker logs --tail 30 lady-marcelle
+  curl -sI http://127.0.0.1:3000/
+  curl -sI https://ladymarcelle.co.za/
+
+In browser:
+  https://ladymarcelle.co.za/  (hard refresh Ctrl+F5)
+
+Optional: confirm a specific uploaded file is in the image/container:
+
+  curl -s http://127.0.0.1:3000/js/google-consent.js | head
+
+----------------------------------------------------------------------
+5. ENVIRONMENT (.env ON SERVER ONLY)
+----------------------------------------------------------------------
+Location on EC2: /home/ec2-user/LadyMarcell-V1/.env
+Template locally: .env.example
+
+Typical keys (values live only on server):
+  PORT=3000
+  MAIL_TO=bozena@iyc.com
+  ENQUIRY_TO_EMAIL=bozena@iyc.com
+  BOOKING_TO_EMAIL=bozena@iyc.com
+  CONTACT_EMAIL=enquiries@ladymarcelle.co.za
+  SMTP_HOST=smtp.ladymarcelle.co.za
+  SMTP_PORT=465
+  SMTP_SECURE=true
+  SMTP_USER=enquiries@ladymarcelle.co.za
+  SMTP_PASS=<secret>
+  SMTP_FROM="Lady Marcelle Website <enquiries@ladymarcelle.co.za>"
+  SMTP_TLS_REJECT_UNAUTHORIZED=false
+
+To update .env:
+  1. Edit on server with nano, OR upload a new .env with pscp
+  2. Recreate the container (stop/rm/run) so new env is picked up
+  Rebuild is NOT required for env-only changes (run alone is enough if image exists).
+
+----------------------------------------------------------------------
+6. NGINX / SSL (RARELY CHANGED)
+----------------------------------------------------------------------
+Repo reference: deploy/nginx-ladymarcelle.conf
+Server file:    /etc/nginx/conf.d/ladymarcelle.conf
+
+After editing nginx:
+
+  sudo nginx -t
+  sudo systemctl reload nginx
+
+HTTP → HTTPS redirect; HTTPS proxies to http://127.0.0.1:3000
+
+Certs: /etc/letsencrypt/live/ladymarcelle.co.za/
+
+If cert needs renewal (certbot usually auto-renews):
+
+  sudo certbot renew
+  sudo systemctl reload nginx
+
+----------------------------------------------------------------------
+7. DNS (IF DOMAIN STOPS RESOLVING)
+----------------------------------------------------------------------
+A records for @ and www should point to: 15.252.165.172
+Do not change MX records when fixing website DNS (email stays separate).
+
+----------------------------------------------------------------------
+8. FIRST-TIME / FULL SETUP (ONLY IF NEW SERVER)
+----------------------------------------------------------------------
+Amazon Linux 2023 expected.
+
+  sudo dnf update -y
+  sudo dnf install -y git nginx docker
+  sudo systemctl enable docker --now
+  sudo systemctl enable nginx --now
+  sudo usermod -aG docker ec2-user
+  # log out / reconnect after usermod
+
+Upload project to ~/LadyMarcell-V1, create .env from .env.example,
+install nginx conf, obtain SSL with certbot, then build/run Docker as above.
+
+Security group must allow inbound:
+  22 (SSH), 80 (HTTP), 443 (HTTPS)
+
+----------------------------------------------------------------------
+9. AGENT CHECKLIST (COPY/PASTE)
+----------------------------------------------------------------------
+[ ] Confirm local project path and which files changed
+[ ] Upload only needed files with pscp + LadyMarcell.ppk
+[ ] Do not upload local .env over production unless asked
+[ ] Rebuild Docker image and recreate container lady-marcelle
+[ ] Confirm docker ps shows container running
+[ ] Confirm curl to 127.0.0.1:3000 and https://ladymarcelle.co.za return 200
+[ ] If forms/email changed, smoke-test enquire or booking submit
+[ ] Do not force-push git or change DNS/MX unless explicitly requested
+
+----------------------------------------------------------------------
+10. NOTES
+----------------------------------------------------------------------
+- Production deploys are file upload + Docker rebuild, NOT GitHub Pages.
+- GitHub may still exist for source control; live traffic is EC2 + Docker + nginx.
+- Google tag / consent / conversion scripts live under js/ and must be
+  included in the Docker image (upload then rebuild).
+- Invoice HTML and other local-only docs do not need deploying unless requested.

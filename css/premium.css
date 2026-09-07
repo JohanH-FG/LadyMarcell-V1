@@ -321,6 +321,7 @@ body.theme-obsidian::after {
 .theme-obsidian .section-label,
 .theme-obsidian .toys-section .section-label,
 .theme-obsidian .features-section .section-label,
+.theme-obsidian .reviews-section .section-label,
 .theme-obsidian .destinations-section .section-label {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 2.8rem);
@@ -398,6 +399,32 @@ body.theme-obsidian::after {
   padding-top: 56px !important;
   padding-bottom: 56px !important;
   padding-right: 80px !important;
+}
+
+.theme-obsidian .reviews-section {
+  --section-band: var(--sky);
+  background: transparent !important;
+  padding-top: 56px !important;
+  padding-bottom: 48px !important;
+}
+
+.theme-obsidian .review-card {
+  background: var(--foam);
+  border-color: var(--line);
+}
+
+.theme-obsidian .review-card:not(.is-expanded) .review-body::after {
+  background: linear-gradient(180deg, rgba(249, 250, 251, 0) 0%, var(--foam) 88%);
+}
+
+.theme-obsidian .reviews-nav {
+  background: #fff;
+  border-color: var(--line);
+  color: var(--deep);
+}
+
+.theme-obsidian .reviews-nav:hover:not(:disabled) {
+  color: var(--blue);
 }
 
 .theme-obsidian .enquire-section {

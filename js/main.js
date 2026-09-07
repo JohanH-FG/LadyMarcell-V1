@@ -43,6 +43,7 @@ function getGalleryByCategory(category) {
 document.addEventListener("DOMContentLoaded", () => {
   initCharterSelection();
   initToysToggle();
+  initReviewsCarousel();
   initFavorites();
   initEnquireForm();
   initNewsletter();
@@ -200,6 +201,100 @@ function initToysToggle() {
   });
 }
 
+function initReviewsCarousel() {
+  const root = document.querySelector("[data-reviews-carousel]");
+  const track = root?.querySelector("[data-reviews-track]");
+  const prev = root?.querySelector("[data-reviews-prev]");
+  const next = root?.querySelector("[data-reviews-next]");
+  if (!root || !track) return;
+
+  const cards = () => [...track.querySelectorAll(".review-card")];
+
+  const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+  const stepSize = () => {
+    const first = cards()[0];
+    if (!first) return 360;
+    const gap = parseFloat(getComputedStyle(track).gap) || 20;
+    return first.getBoundingClientRect().width + gap;
+  };
+
+  const scrollTolerance = () => Math.max(4, stepSize() * 0.05);
+
+  const updateButtons = () => {
+    const tolerance = scrollTolerance();
+    const scroll = track.scrollLeft;
+    const max = maxScroll();
+    if (prev) prev.disabled = scroll <= tolerance;
+    if (next) next.disabled = scroll >= max - tolerance;
+  };
+
+  const collapseCard = (card) => {
+    card.classList.remove("is-expanded");
+    card.setAttribute("aria-expanded", "false");
+  };
+
+  const expandCard = (card) => {
+    cards().forEach((other) => {
+      if (other !== card) collapseCard(other);
+    });
+    card.classList.add("is-expanded");
+    card.setAttribute("aria-expanded", "true");
+    card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+  };
+
+  const toggleCard = (card) => {
+    if (card.classList.contains("is-expanded")) {
+      collapseCard(card);
+    } else {
+      expandCard(card);
+    }
+  };
+
+  prev?.addEventListener("click", () => {
+    const tolerance = scrollTolerance();
+    if (track.scrollLeft <= tolerance) {
+      track.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+    track.scrollBy({ left: -stepSize(), behavior: "smooth" });
+  });
+
+  next?.addEventListener("click", () => {
+    const step = stepSize();
+    const max = maxScroll();
+    const remaining = max - track.scrollLeft;
+    if (remaining <= step * 0.5) {
+      track.scrollTo({ left: max, behavior: "smooth" });
+      return;
+    }
+    track.scrollBy({ left: step, behavior: "smooth" });
+  });
+
+  cards().forEach((card) => {
+    card.addEventListener("click", () => toggleCard(card));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleCard(card);
+      }
+      if (e.key === "Escape" && card.classList.contains("is-expanded")) {
+        collapseCard(card);
+      }
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!root.contains(e.target)) {
+      cards().forEach(collapseCard);
+    }
+  });
+
+  track.addEventListener("scroll", updateButtons, { passive: true });
+  window.addEventListener("resize", updateButtons);
+  updateButtons();
+}
+
 function initFavorites() {
   const btn = document.getElementById("favorites-btn");
   if (!btn) return;
@@ -269,6 +364,9 @@ function initEnquireForm() {
       if (start) start.min = today;
       if (end) {
         end.min = today;
+      }
+      if (typeof window.gtag_report_conversion === "function") {
+        window.gtag_report_conversion();
       }
     } catch (err) {
       if (error) {

@@ -60,6 +60,9 @@
         applyCharterSelectionToForm(form, selection);
         if (form.startDate) form.startDate.min = today;
         if (form.endDate) form.endDate.min = today;
+        if (typeof window.gtag_report_conversion === "function") {
+          window.gtag_report_conversion();
+        }
       } catch (err) {
         if (error) {
           error.textContent = getFormSubmitError(err);

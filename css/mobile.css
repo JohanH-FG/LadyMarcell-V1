@@ -52,6 +52,7 @@ html.gallery-modal-open body {
   .theme-obsidian .main-col > .gallery-section,
   .theme-obsidian .main-col > .features-marquee-section,
   .theme-obsidian .main-col > .yacht-blueprint-section,
+  .theme-obsidian .main-col > .reviews-section,
   .theme-obsidian .main-col > .destinations-section {
     width: 100% !important;
     max-width: 100% !important;
@@ -183,9 +184,17 @@ html.gallery-modal-open body {
   .theme-obsidian .main-col > .content-section,
   .theme-obsidian .main-col > .gallery-section,
   .theme-obsidian .main-col > .features-marquee-section,
-  .theme-obsidian .main-col > .yacht-blueprint-section {
+  .theme-obsidian .main-col > .yacht-blueprint-section,
+  .theme-obsidian .main-col > .reviews-section {
     padding-left: 20px !important;
     padding-right: 20px !important;
+    overflow: visible;
+  }
+
+  .theme-obsidian .reviews-carousel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .theme-obsidian .main-col > .destinations-section {
@@ -600,7 +609,8 @@ html.gallery-modal-open body {
   .theme-obsidian .main-col > .content-section,
   .theme-obsidian .main-col > .gallery-section,
   .theme-obsidian .main-col > .features-marquee-section,
-  .theme-obsidian .main-col > .yacht-blueprint-section {
+  .theme-obsidian .main-col > .yacht-blueprint-section,
+  .theme-obsidian .main-col > .reviews-section {
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
