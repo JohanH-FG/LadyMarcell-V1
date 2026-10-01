@@ -178,7 +178,74 @@ html.gallery-modal-open body {
   }
 
   .theme-obsidian .obsidian-hero {
-    min-height: min(92vh, 620px);
+    /* Hero matches video aspect so full frame fills L→R (no huge letterbox) */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    max-height: none;
+    padding-bottom: 0 !important;
+    margin: 0;
+    background: var(--navy-deep, #0a1628);
+    display: block;
+    overflow: hidden;
+  }
+
+  /* Kill desktop side gutters / rounded card on tablet */
+  .theme-obsidian .obsidian-hero .hero,
+  .theme-obsidian .hero {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .theme-obsidian .obsidian-hero .hero,
+  .theme-obsidian .hero-media-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background: var(--navy-deep, #0a1628);
+  }
+
+  .theme-obsidian .obsidian-hero .hero-img,
+  .theme-obsidian .obsidian-hero video.hero-video,
+  .theme-obsidian .hero-media-wrap .hero-video {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    transform: none !important;
+  }
+
+  .theme-obsidian .hero-img {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  /* Text overlaid on the video, brought up */
+  .theme-obsidian .obsidian-hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 10px 16px 8px !important;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .theme-obsidian .obsidian-hero-content h1 .brand-logo--hero {
+    height: clamp(44px, 12vw, 72px);
+  }
+
+  .theme-obsidian .hero-nav-sticky-host {
+    margin-top: -56px;
   }
 
   .theme-obsidian .main-col > .content-section,
@@ -371,6 +438,27 @@ html.gallery-modal-open body {
 
 /* —— Mobile & tablet navigation — inline Home | Logo | Enquire —— */
 @media (max-width: 1100px) {
+  .theme-obsidian .obsidian-hero,
+  .theme-obsidian .hero-bottom-band {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .theme-obsidian .obsidian-hero .hero,
+  .theme-obsidian .hero {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .theme-obsidian .hero-img {
+    transform: none !important;
+  }
+
   .header-inner {
     padding: 0 16px;
   }
@@ -418,12 +506,76 @@ html.gallery-modal-open body {
   }
 
   .theme-obsidian .obsidian-hero {
-    min-height: min(85vh, 520px);
-    padding-bottom: 40px;
+    /* Phone: taller hero so the video reads larger */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: min(52svh, 420px);
+    aspect-ratio: 4 / 3;
+    max-height: none;
+    padding-bottom: 0 !important;
+    margin: 0;
+    background: var(--navy-deep, #0a1628);
+    display: block;
+    overflow: hidden;
+  }
+
+  .theme-obsidian .obsidian-hero .hero,
+  .theme-obsidian .hero {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .theme-obsidian .obsidian-hero .hero,
+  .theme-obsidian .hero-media-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background: var(--navy-deep, #0a1628);
+    overflow: hidden;
+  }
+
+  .theme-obsidian .obsidian-hero .hero-img {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .theme-obsidian .obsidian-hero video.hero-video,
+  .theme-obsidian .hero-media-wrap .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
   }
 
   .theme-obsidian .obsidian-hero-content {
-    padding: clamp(22px, 4vh, 48px) 16px 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 8px 14px 6px !important;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .theme-obsidian .obsidian-hero-content h1 .brand-logo--hero {
+    height: clamp(40px, 14vw, 64px);
+  }
+
+  .theme-obsidian .hero-eyebrow,
+  .theme-obsidian .hero-with,
+  .theme-obsidian .hero-tagline {
+    font-size: 12px;
   }
 
   .theme-obsidian .hero-nav-sticky-host {

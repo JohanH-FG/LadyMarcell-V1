@@ -14,13 +14,19 @@
   function initParallax() {
     const media = document.querySelector(".hero-img");
     if (!media || reduced) {
-      if (media instanceof HTMLVideoElement) media.pause();
+      return;
+    }
+    // Parallax scale fights object-fit cover on mobile/tablet — keep video screen-fitted
+    const narrow = window.matchMedia("(max-width: 980px)");
+    if (narrow.matches) {
+      media.style.transform = "";
       return;
     }
     let ticking = false;
     const update = () => {
-      const y = Math.min(window.scrollY * 0.32, 140);
-      media.style.transform = `translate3d(0, ${y}px, 0) scale(1.15)`;
+      // Mild static overscan only (1.06) — large scale(1.15) made playback soft/laggy
+      const y = Math.min(window.scrollY * 0.22, 90);
+      media.style.transform = `translate3d(0, ${y}px, 0) scale(1.06)`;
       ticking = false;
     };
     window.addEventListener(
@@ -263,30 +269,55 @@
     const video = document.getElementById("hero-main-video");
     const body = document.body;
 
+    // Poster shows immediately; do not block the rest of the page on video
     body.classList.remove("hero-video-loading");
     body.classList.add("is-page-ready");
+    onReady();
 
-    // Vimeo iframe — show page immediately; video loads in the background
-    if (!video || video instanceof HTMLIFrameElement || reduced) {
-      onReady();
-      return;
-    }
+    if (!video || !(video instanceof HTMLVideoElement) || reduced) return;
 
-    let done = false;
-    const reveal = () => {
-      if (done) return;
-      done = true;
-      onReady();
+    const tryPlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
     };
 
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      reveal();
-      return;
-    }
+    const attachAndPlay = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
 
-    video.addEventListener("canplaythrough", reveal, { once: true });
-    video.addEventListener("error", reveal, { once: true });
-    window.setTimeout(reveal, 3000);
+      const src = video.getAttribute("data-src");
+      if (src && !video.querySelector("source") && !video.src) {
+        const source = document.createElement("source");
+        source.src = src;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        video.load();
+      }
+
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        tryPlay();
+      } else {
+        video.addEventListener("canplay", tryPlay, { once: true });
+        video.addEventListener("loadeddata", tryPlay, { once: true });
+      }
+    };
+
+    // Defer video network until after first paint / short idle
+    const schedule =
+      typeof window.requestIdleCallback === "function"
+        ? (fn) => window.requestIdleCallback(fn, { timeout: 1500 })
+        : (fn) => window.setTimeout(fn, 450);
+    schedule(attachAndPlay);
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (!document.hidden && video.paused && video.querySelector("source")) tryPlay();
+      },
+      { passive: true }
+    );
   }
 
   document.addEventListener("DOMContentLoaded", () => {

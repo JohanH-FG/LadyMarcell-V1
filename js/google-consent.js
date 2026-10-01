@@ -1,6 +1,7 @@
 /** Google tag + Consent Mode v2 (EEA defaults denied) */
 (function () {
-  const GTAG_ID = "AW-399555234";
+  const ADS_ID = "AW-399555234";
+  const GA4_ID = "G-RJGKQ2ZFJK";
   const CONSENT_KEY = "lm_cookie_consent";
 
   const EEA_REGIONS = [
@@ -79,10 +80,11 @@
 
   const script = document.createElement("script");
   script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
   script.onload = function () {
     gtag("js", new Date());
-    gtag("config", GTAG_ID);
+    gtag("config", ADS_ID);
+    gtag("config", GA4_ID);
   };
   document.head.appendChild(script);
 })();

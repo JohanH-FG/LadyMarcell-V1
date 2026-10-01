@@ -8,13 +8,14 @@
   <meta name="description" content="Charter Lady Marcelle, a 27m Horizon motor yacht. From €34,000 p/week + expenses. East Mediterranean." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;0,600;1,400&family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/premium.css" />
   <link rel="stylesheet" href="css/experience.css" />
   <link rel="stylesheet" href="css/layout-shared.css" />
   <link rel="stylesheet" href="css/mobile.css" />
   <link rel="stylesheet" href="css/consent.css" />
+  <link rel="preload" as="image" href="images/hero-poster.jpg" fetchpriority="high" />
 </head>
 <body class="theme-obsidian">
   <!-- Header -->
@@ -57,15 +58,18 @@
 
   <section class="obsidian-hero">
     <section class="hero" id="gallery-trigger">
-      <div class="hero-vimeo-wrap hero-img">
-        <iframe
-          class="hero-vimeo-iframe"
+      <div class="hero-media-wrap hero-img">
+        <video
+          class="hero-video"
           id="hero-main-video"
-          src="https://player.vimeo.com/video/1219790758?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
-          title="Lady Marcelle motor yacht cruising in blue water"
-          allow="autoplay; fullscreen; picture-in-picture"
-          loading="eager"
-        ></iframe>
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="images/hero-poster.jpg"
+          data-src="videos/lady-marcelle-hero-web.mp4"
+          aria-label="Lady Marcelle motor yacht cruising in blue water"
+        ></video>
       </div>
     </section>
     <div class="obsidian-hero-content">
@@ -132,7 +136,7 @@
       <section class="gallery-section" id="gallery" aria-label="Photo gallery">
         <div class="gallery-section-head">
           <div class="brand-logo-wrap">
-            <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--section" width="320" height="72" />
+            <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--section" width="320" height="72" loading="lazy" />
           </div>
         </div>
         <div class="gallery-category-grid" id="gallery-category-grid" role="list"></div>
@@ -269,13 +273,13 @@
         <div class="blueprint-head">
           <h2 class="section-label brand-logo-heading brand-logo-heading--center">
             <span>Explore</span>
-            <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" />
+            <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--inline" width="240" height="54" loading="lazy" />
           </h2>
           <p class="blueprint-lede">Tap or hover over the hotspots to explore the yacht's key areas and features.</p>
         </div>
         <div class="blueprint-stage">
         <div class="blueprint-wrap">
-          <img src="images/yacht-blueprint.png" alt="Lady Marcelle aerial blueprint illustration" class="blueprint-img" />
+          <img src="images/yacht-blueprint.png" alt="Lady Marcelle aerial blueprint illustration" class="blueprint-img" loading="lazy" decoding="async" />
 
           <button class="bp-dot" data-bp="aft-deck" style="top:48%;left:18%;" aria-label="Aft deck">
             <span class="bp-pulse"></span>
@@ -537,11 +541,11 @@
         <h2 class="section-label">Destination Inspiration</h2>
         <div class="dest-grid">
           <a href="croatia.html" class="dest-card">
-            <img src="images/5febaae994cee_croatia_yacht_charter_luxury_9c2e76084b.webp" alt="Croatia coastline" />
+            <img src="images/5febaae994cee_croatia_yacht_charter_luxury_9c2e76084b.webp" alt="Croatia coastline" loading="lazy" decoding="async" />
             <span>Croatia</span>
           </a>
           <a href="montenegro.html" class="dest-card">
-            <img src="images/5febad76e6b03_shutterstock_131475266_low_9c0b062e45.webp" alt="Montenegro coastline" />
+            <img src="images/5febad76e6b03_shutterstock_131475266_low_9c0b062e45.webp" alt="Montenegro coastline" loading="lazy" decoding="async" />
             <span>Montenegro</span>
           </a>
         </div>
@@ -552,7 +556,7 @@
     <aside class="sidebar" id="charter-sidebar" aria-label="Charter enquiry">
       <div class="sidebar-inner">
         <h2 class="sidebar-title">
-          <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--sidebar" width="200" height="44" />
+          <img src="images/logos/lm-full-brand.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--sidebar" width="200" height="44" loading="lazy" />
         </h2>
         <p class="sidebar-sub">Horizon · 88'7"/27m</p>
         <p class="sidebar-rate">Rate: From €34,000 <em>p/week + expenses</em></p>
@@ -617,7 +621,7 @@
   <!-- Enquire section -->
   <section class="enquire-section" id="enquire">
     <div class="enquire-bg">
-      <img src="images/1667398866785_lady_marcelle10_1600x900.webp" alt="" aria-hidden="true" />
+      <img src="images/1667398866785_lady_marcelle10_1600x900.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="enquire-card">
       <h2 class="brand-logo-heading brand-logo-heading--center">
@@ -706,7 +710,7 @@
     <div class="footer-grid footer-grid--simple">
       <div>
         <h3>
-          <img src="images/logos/lm-full-white.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" />
+          <img src="images/logos/lm-full-white.png" alt="Lady Marcelle" data-brand-logo="full" class="brand-logo brand-logo--footer" width="180" height="40" loading="lazy" />
         </h3>
         <ul>
           <li><a href="index.html">Yacht overview</a></li>
@@ -734,7 +738,7 @@
     <div class="gallery-modal-header">
       <div class="gallery-modal-header-center">
         <div class="brand-logo-wrap">
-          <img src="images/logos/lm-full-white.png" alt="Lady Marcelle" class="brand-logo brand-logo--modal" width="220" height="48" />
+          <img src="images/logos/lm-full-white.png" alt="Lady Marcelle" class="brand-logo brand-logo--modal" width="220" height="48" loading="lazy" />
         </div>
         <p>Horizon · 88'7"/27m · Rate: From €34,000 p/week + expenses</p>
         <nav class="gallery-modal-categories" id="gallery-modal-categories" aria-label="Gallery categories"></nav>
@@ -758,12 +762,12 @@
     </div>
   </div>
 
-  <script src="js/country-codes.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/charter-selection.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/premium.js"></script>
-  <script src="js/gallery-pro.js"></script>
-  <script src="js/cookie-consent.js"></script>
+  <script src="js/country-codes.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/charter-selection.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/premium.js" defer></script>
+  <script src="js/gallery-pro.js" defer></script>
+  <script src="js/cookie-consent.js" defer></script>
 </body>
 </html>
